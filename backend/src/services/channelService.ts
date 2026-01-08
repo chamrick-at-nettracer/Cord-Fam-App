@@ -29,6 +29,23 @@ export class ChannelService {
     return await this.channelRepository.isMember(channelId, userId);
   }
 
+  async ensureMember(channelId: number, userId: number): Promise<void> {
+    const isMember = await this.isMember(channelId, userId);
+    if (!isMember) {
+      // Check if channel is private
+      const channel = await this.channelRepository.findById(channelId);
+      if (!channel) {
+        throw new Error('Channel not found');
+      }
+      // Auto-join public channels, require explicit join for private channels
+      if (!channel.is_private) {
+        await this.channelRepository.addMember(channelId, userId);
+      } else {
+        throw new Error('You are not a member of this private channel');
+      }
+    }
+  }
+
   private toChannelResponse(channel: {
     id: number;
     name: string;

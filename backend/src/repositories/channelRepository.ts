@@ -47,4 +47,12 @@ export class ChannelRepository {
     );
     return rows.length > 0;
   }
+
+  async addMember(channelId: number, userId: number): Promise<void> {
+    const pool = mysqlConnection.getPool();
+    await pool.execute('INSERT IGNORE INTO channel_members (channel_id, user_id) VALUES (?, ?)', [
+      channelId,
+      userId,
+    ]);
+  }
 }

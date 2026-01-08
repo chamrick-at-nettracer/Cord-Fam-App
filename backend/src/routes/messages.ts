@@ -20,18 +20,8 @@ export async function messageRoutes(fastify: FastifyInstance) {
         const channelId = parseInt((request.params as { channelId: string }).channelId, 10);
         const userId = request.userId!;
 
-        // Check if user is member
-        const isMember = await channelService.isMember(channelId, userId);
-        if (!isMember) {
-          reply.code(403).send({
-            success: false,
-            error: {
-              code: 'FORBIDDEN',
-              message: 'You are not a member of this channel',
-            },
-          });
-          return;
-        }
+        // Auto-join public channels if not already a member
+        await channelService.ensureMember(channelId, userId);
 
         const messages = await messageService.getChannelMessages(channelId);
         reply.code(200).send({
@@ -59,18 +49,8 @@ export async function messageRoutes(fastify: FastifyInstance) {
         const userId = request.userId!;
         const body = createMessageSchema.parse(request.body);
 
-        // Check if user is member
-        const isMember = await channelService.isMember(channelId, userId);
-        if (!isMember) {
-          reply.code(403).send({
-            success: false,
-            error: {
-              code: 'FORBIDDEN',
-              message: 'You are not a member of this channel',
-            },
-          });
-          return;
-        }
+        // Auto-join public channels if not already a member
+        await channelService.ensureMember(channelId, userId);
 
         const message = await messageService.createMessage(body, channelId, userId);
         reply.code(201).send({
