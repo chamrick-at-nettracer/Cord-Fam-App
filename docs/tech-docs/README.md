@@ -25,6 +25,7 @@ comprehensive documentation for developers and AI agents working on the project.
 
 - **[Development Guide](DEVELOPMENT.md)** - Development workflow, testing,
   debugging
+- **[E2E Testing Guide](E2E_TESTING.md)** - End-to-end testing with Playwright
 - **[Git Hooks](GIT_HOOKS.md)** - Pre-commit hooks and code quality
 - **[Multi-Agent Setup](MULTI_AGENT_SETUP.md)** - Using multiple AI agents
 

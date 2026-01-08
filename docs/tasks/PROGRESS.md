@@ -55,6 +55,71 @@ Cord-Fam-App project.
     - `backend/src/routes/messages.ts` - Added `ensureMember()` calls before
       message access/creation
 
+### 2026-01-27: Testing & Documentation Infrastructure
+
+- [x] Set up comprehensive unit testing infrastructure
+  - **Backend**: Jest with 40% coverage threshold (increasing to 90% over time)
+  - **Frontend**: Vitest with 40% coverage threshold (increasing to 90% over
+    time)
+  - **Pre-commit hooks**: Automated test runs with verbose output
+  - **Coverage reporting**: Istanbul/V8 coverage with HTML reports
+  - **Files Changed**:
+    - `backend/jest.config.js` - Jest configuration with coverage thresholds
+    - `frontend/web/vite.config.ts` - Vitest configuration with coverage
+    - `.husky/pre-commit` - Pre-commit hook for running tests
+    - Test files in `backend/src/**/tests/` and `frontend/web/src/**/tests/`
+
+- [x] Set up Swagger/OpenAPI API documentation
+  - **Status**: Fully functional API documentation
+  - **Access**: Available at `http://localhost:3000/api-docs` when backend is
+    running
+  - **Coverage**: All API endpoints documented (auth, channels, messages)
+  - **Features**: Interactive API explorer, request/response schemas,
+    authentication testing
+  - **Files Changed**:
+    - `backend/src/index.ts` - Swagger and Swagger UI registration
+    - `backend/src/routes/auth.ts` - OpenAPI schemas for auth endpoints
+    - `backend/src/routes/channels.ts` - OpenAPI schemas for channel endpoints
+    - `backend/src/routes/messages.ts` - OpenAPI schemas for message endpoints
+    - `backend/package.json` - Added `@Fastify/swagger` and
+      `@Fastify/swagger-ui`
+
+- [x] Set up End-to-End (E2E) testing with Playwright
+  - **Status**: E2E test infrastructure complete with initial test suite
+  - **Test Files**: `frontend/web/e2e/auth.spec.ts`,
+    `frontend/web/e2e/dashboard.spec.ts`
+  - **Coverage**: Authentication flows, dashboard functionality
+  - **Documentation**: Comprehensive E2E testing guide for developers
+  - **Files Changed**:
+    - `frontend/web/playwright.config.ts` - Playwright configuration
+    - `frontend/web/e2e/auth.spec.ts` - Authentication E2E tests
+    - `frontend/web/e2e/dashboard.spec.ts` - Dashboard E2E tests
+    - `frontend/web/e2e/README.md` - Quick reference guide
+    - `docs/tech-docs/E2E_TESTING.md` - Comprehensive E2E testing guide
+    - `frontend/web/package.json` - Added Playwright scripts
+    - `.gitignore` - Added Playwright artifacts
+
+- [x] Created user documentation with help UI
+  - **Status**: Basic user documentation with in-app help access
+  - **Documentation Files**: `docs/user-docs/GETTING_STARTED.md`,
+    `MESSAGING.md`, `CHANNELS.md`
+  - **Help UI**: Help icon (?) in dashboard AppBar, navigates to `/help` page
+  - **Features**: Markdown rendering, sidebar navigation, responsive layout
+  - **Files Changed**:
+    - `docs/user-docs/GETTING_STARTED.md` - Getting started guide
+    - `docs/user-docs/MESSAGING.md` - Messaging guide
+    - `docs/user-docs/CHANNELS.md` - Channels guide
+    - `frontend/web/src/pages/HelpPage.tsx` - Help page component
+    - `frontend/web/src/pages/DashboardPage.tsx` - Added help icon
+    - `frontend/web/src/App.tsx` - Added `/help` route
+
+**Current Test Coverage Status**:
+
+- **Backend Unit Tests**: ~51% coverage (target: 90%+)
+- **Frontend Unit Tests**: ~70% coverage (target: 90%+)
+- **E2E Tests**: Initial test suite created (target: 100% feature coverage)
+- **Coverage Threshold**: Currently 40% (increasing 5% per week until 90%)
+
 ---
 
 ## In Progress
@@ -78,7 +143,7 @@ Cord-Fam-App project.
 - [ ] Implement authentication system (JWT)
 - [ ] Create user management APIs
 - [ ] Set up file storage system
-- [ ] Create API documentation structure (Swagger)
+- [x] Create API documentation structure (Swagger) ✅ **COMPLETE**
 - [ ] Implement logging and error handling
 - [ ] Set up testing framework (Jest)
 
@@ -139,7 +204,8 @@ Cord-Fam-App project.
 ### Phase 3: Testing & Quality
 
 - [ ] Achieve 100% unit test coverage
-- [ ] Create comprehensive E2E tests (Playwright)
+- [x] Create comprehensive E2E tests (Playwright) ✅ **INFRASTRUCTURE COMPLETE**
+      (expanding test coverage)
 - [ ] Set up automated test runs
 - [ ] Performance testing and optimization
 - [ ] Security audit
@@ -149,7 +215,7 @@ Cord-Fam-App project.
 
 - [ ] Complete user documentation
 - [ ] Complete technical documentation
-- [ ] Complete API documentation (Swagger)
+- [x] Complete API documentation (Swagger) ✅ **COMPLETE**
 - [ ] Create deployment guides
 - [ ] Create troubleshooting guides
 
@@ -198,4 +264,5 @@ No blocked items currently.
 
 ---
 
-**Last Updated**: 2026-01-27 (after MVP bug fixes)
+**Last Updated**: 2026-01-27 (after testing & documentation infrastructure
+setup)

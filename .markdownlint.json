@@ -38,8 +38,10 @@
       "Fastify",
       "Vite",
       "MUI",
-      "Material-UI"
-    ]
+      "Material-UI",
+      "Vitest"
+    ],
+    "code_blocks": false
   },
   "MD045": true,
   "MD046": { "style": "fenced" },
