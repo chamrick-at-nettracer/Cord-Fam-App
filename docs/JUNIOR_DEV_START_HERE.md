@@ -205,8 +205,15 @@ MYSQL_PASSWORD=password
 **Change it to your actual MySQL password**:
 
 ```text
-MYSQL_PASSWORD=your_actual_password_here
+MYSQL_PASSWORD="your_actual_password_here"
 ```
+
+**Important**: If your password contains special characters like `#`, `$`, or
+spaces, wrap it in quotes:
+
+- `MYSQL_PASSWORD="my#password123"` ✅
+- `MYSQL_PASSWORD='my#password123'` ✅
+- `MYSQL_PASSWORD=my#password123` ❌ (the `#` will be treated as a comment)
 
 **Save and exit**:
 
