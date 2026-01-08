@@ -68,7 +68,7 @@ export class AuthService {
       username?: string;
       first_name?: string;
       last_name?: string;
-      preferred_color?: string;
+      preferred_color?: string | null;
     }
   ): Promise<UserResponse> {
     // Check username uniqueness if updating username

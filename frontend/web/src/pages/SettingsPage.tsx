@@ -33,15 +33,38 @@ export default function SettingsPage() {
     setLoading(true);
 
     try {
-      await updateProfile({
-        username: username.trim() || undefined,
-        first_name: firstName.trim() || undefined,
-        last_name: lastName.trim() || undefined,
-        preferred_color: preferredColor || null,
-      });
+      const updates: {
+        username?: string;
+        first_name?: string;
+        last_name?: string;
+        preferred_color?: string | null;
+      } = {};
+
+      if (username.trim()) {
+        updates.username = username.trim();
+      }
+      if (firstName.trim()) {
+        updates.first_name = firstName.trim();
+      }
+      if (lastName.trim()) {
+        updates.last_name = lastName.trim();
+      }
+      // Always include preferred_color if it's a valid hex color
+      if (preferredColor && /^#[0-9A-Fa-f]{6}$/.test(preferredColor)) {
+        updates.preferred_color = preferredColor;
+      } else if (preferredColor === '' || preferredColor === '#') {
+        updates.preferred_color = null;
+      }
+
+      await updateProfile(updates);
       setSuccess('Profile updated successfully!');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to update profile');
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : 'Failed to update profile. Make sure the backend server is running.';
+      setError(errorMessage);
+      console.error('Profile update error:', err);
     } finally {
       setLoading(false);
     }

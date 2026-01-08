@@ -52,7 +52,7 @@ export class UserRepository {
       username?: string;
       first_name?: string;
       last_name?: string;
-      preferred_color?: string;
+      preferred_color?: string | null;
     }
   ): Promise<User> {
     const pool = mysqlConnection.getPool();

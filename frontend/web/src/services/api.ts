@@ -30,6 +30,14 @@ api.interceptors.response.use(
       // Redirect to login page
       window.location.href = '/login';
     }
+    // Improve error messages for network errors
+    if (!error.response) {
+      // Network error - server not reachable
+      const networkError = new Error(
+        error.message || 'Network Error: Could not reach server. Is the backend running?'
+      );
+      return Promise.reject(networkError);
+    }
     return Promise.reject(error);
   }
 );
