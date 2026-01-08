@@ -51,14 +51,28 @@ export default function SettingsPage() {
       if (lastName.trim()) {
         updates.last_name = lastName.trim();
       }
-      // Always include preferred_color if it's a valid hex color
-      if (preferredColor && /^#[0-9A-Fa-f]{6}$/.test(preferredColor)) {
-        updates.preferred_color = preferredColor;
-      } else if (preferredColor === '' || preferredColor === '#') {
+      // Normalize and validate preferred_color
+      // Color picker returns uppercase, but normalize to ensure consistency
+      const normalizedColor = preferredColor.trim().toUpperCase();
+
+      if (normalizedColor && /^#[0-9A-F]{6}$/.test(normalizedColor)) {
+        updates.preferred_color = normalizedColor;
+        console.log('Sending preferred_color update:', normalizedColor);
+      } else if (normalizedColor === '' || normalizedColor === '#') {
         updates.preferred_color = null;
+        console.log('Clearing preferred_color');
+      } else {
+        // Invalid color format - show error instead of silently ignoring
+        setError(
+          `Invalid color format: "${preferredColor}". Please use a 6-digit hex color (e.g., #993366)`
+        );
+        setLoading(false);
+        return;
       }
 
-      await updateProfile(updates);
+      const updatedUser = await updateProfile(updates);
+      console.log('Profile updated successfully. Updated user:', updatedUser);
+      console.log('Preferred color in response:', updatedUser.preferred_color);
       setSuccess('Profile updated successfully!');
     } catch (err) {
       const errorMessage =
@@ -154,7 +168,11 @@ export default function SettingsPage() {
               <input
                 type="color"
                 value={preferredColor}
-                onChange={(e) => setPreferredColor(e.target.value)}
+                onChange={(e) => {
+                  const newColor = e.target.value.toUpperCase();
+                  console.log('Color picker changed to:', newColor);
+                  setPreferredColor(newColor);
+                }}
                 style={{
                   width: '60px',
                   height: '40px',
@@ -167,8 +185,16 @@ export default function SettingsPage() {
                 size="small"
                 label="Hex Color"
                 value={preferredColor}
-                onChange={(e) => setPreferredColor(e.target.value)}
-                inputProps={{ pattern: '^#[0-9A-Fa-f]{6}$', maxLength: 7 }}
+                onChange={(e) => {
+                  const newColor = e.target.value.toUpperCase();
+                  console.log('Text input changed to:', newColor);
+                  setPreferredColor(newColor);
+                }}
+                inputProps={{ pattern: '^#[0-9A-F]{6}$', maxLength: 7 }}
+                helperText={
+                  preferredColor && !/^#[0-9A-F]{6}$/.test(preferredColor) ? 'Invalid format' : ''
+                }
+                error={preferredColor ? !/^#[0-9A-F]{6}$/.test(preferredColor) : false}
                 sx={{ width: '120px' }}
               />
             </Box>

@@ -15,7 +15,7 @@ interface AuthContextType {
     first_name?: string;
     last_name?: string;
     preferred_color?: string | null;
-  }) => Promise<void>;
+  }) => Promise<User>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -54,9 +54,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     first_name?: string;
     last_name?: string;
     preferred_color?: string | null;
-  }) => {
+  }): Promise<User> => {
     const updatedUser = await authService.updateProfile(updates);
     setUser(updatedUser);
+    return updatedUser;
   };
 
   return (
