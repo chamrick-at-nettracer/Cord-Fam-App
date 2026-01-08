@@ -72,6 +72,9 @@ brew services list | grep MySQL
 # Should show: MySQL  started  ...
 ```
 
+**Note**: If you installed MySQL from the official installer (not Homebrew),
+MySQL is already running. You can skip this step and go directly to Step 4b.
+
 **If MySQL won't start** (bootstrap error):
 
 ```bash
