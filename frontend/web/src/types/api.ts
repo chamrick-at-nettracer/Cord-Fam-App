@@ -5,6 +5,16 @@ export interface User {
   first_name?: string;
   last_name?: string;
   avatar_url?: string;
+  preferred_color?: string;
+}
+
+export interface MessageUser {
+  id: number;
+  username: string;
+  first_name?: string;
+  last_name?: string;
+  avatar_url?: string;
+  preferred_color?: string;
 }
 
 export interface Channel {
@@ -21,6 +31,7 @@ export interface Message {
   id: string;
   channel_id: number;
   user_id: number;
+  user: MessageUser;
   content: string;
   attachments?: Array<{
     file_id: string;

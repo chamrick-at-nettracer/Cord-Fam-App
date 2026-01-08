@@ -21,10 +21,20 @@ export interface CreateMessageInput {
   attachments?: Attachment[];
 }
 
+export interface MessageUser {
+  id: number;
+  username: string;
+  first_name?: string;
+  last_name?: string;
+  avatar_url?: string;
+  preferred_color?: string;
+}
+
 export interface MessageResponse {
   id: string;
   channel_id: number;
   user_id: number;
+  user: MessageUser;
   content: string;
   attachments?: Attachment[];
   edited_at?: string;

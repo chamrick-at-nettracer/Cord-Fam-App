@@ -19,4 +19,19 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Handle 401 responses (unauthorized) - token expired or invalid
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Token is invalid or expired, clear auth data
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      // Redirect to login page
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default api;

@@ -69,6 +69,7 @@ export class AuthService {
     first_name?: string;
     last_name?: string;
     avatar_url?: string;
+    preferred_color?: string;
   }): UserResponse {
     return {
       id: user.id,
@@ -77,6 +78,7 @@ export class AuthService {
       first_name: user.first_name,
       last_name: user.last_name,
       avatar_url: user.avatar_url,
+      preferred_color: user.preferred_color,
     };
   }
 }

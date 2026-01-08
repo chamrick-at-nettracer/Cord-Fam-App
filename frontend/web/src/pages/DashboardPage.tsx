@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../store/AuthContext';
 import { channelService } from '../services/channelService';
 import { messageService } from '../services/messageService';
 import type { Channel, Message } from '../types/api';
+import MessageItem from '../components/MessageItem';
+import MarkdownToolbar from '../components/MarkdownToolbar';
 import {
   Box,
   Drawer,
@@ -34,6 +36,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [sending, setSending] = useState(false);
+  const messageInputRef = useRef<HTMLTextAreaElement | HTMLInputElement>(null);
 
   useEffect(() => {
     loadChannels();
@@ -98,6 +101,27 @@ export default function DashboardPage() {
     } finally {
       setSending(false);
     }
+  };
+
+  const handleInsertMarkdown = (before: string, after: string) => {
+    const input = messageInputRef.current;
+    if (!input) return;
+
+    const start = input.selectionStart || 0;
+    const end = input.selectionEnd || 0;
+    const selectedText = newMessage.substring(start, end);
+    const beforeText = newMessage.substring(0, start);
+    const afterText = newMessage.substring(end);
+
+    const newText = `${beforeText}${before}${selectedText}${after}${afterText}`;
+    setNewMessage(newText);
+
+    // Restore cursor position after state update
+    setTimeout(() => {
+      input.focus();
+      const newCursorPos = start + before.length + selectedText.length;
+      input.setSelectionRange(newCursorPos, newCursorPos);
+    }, 0);
   };
 
   return (
@@ -217,36 +241,52 @@ export default function DashboardPage() {
               }}
             >
               {messages.map((message) => (
-                <Box key={message.id} sx={{ mb: 2 }}>
-                  <Typography variant="caption" color="text.secondary">
-                    User {message.user_id} • {new Date(message.created_at).toLocaleString()}
-                  </Typography>
-                  <Typography variant="body1">{message.content}</Typography>
-                </Box>
+                <MessageItem
+                  key={message.id}
+                  user={message.user}
+                  content={message.content}
+                  createdAt={message.created_at}
+                />
               ))}
             </Paper>
 
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              <TextField
-                fullWidth
-                placeholder="Type a message..."
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSendMessage();
-                  }
-                }}
-                disabled={sending}
-              />
-              <Button
-                variant="contained"
-                onClick={handleSendMessage}
-                disabled={sending || !newMessage.trim()}
-              >
-                Send
-              </Button>
+            <Box sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
+              <MarkdownToolbar onInsert={handleInsertMarkdown} />
+              <Box sx={{ display: 'flex', gap: 1, p: 1 }}>
+                <TextField
+                  inputRef={messageInputRef}
+                  fullWidth
+                  placeholder="Type a message... (Shift+Enter for new line)"
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
+                  disabled={sending}
+                  multiline
+                  maxRows={4}
+                  variant="standard"
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      padding: 0,
+                    },
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  onClick={handleSendMessage}
+                  disabled={sending || !newMessage.trim()}
+                  sx={{ alignSelf: 'flex-end' }}
+                >
+                  Send
+                </Button>
+              </Box>
             </Box>
           </>
         ) : (
