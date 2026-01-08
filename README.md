@@ -30,6 +30,28 @@ capabilities.
 └── scripts/         # Build and deployment scripts
 ```
 
+## Quick Start
+
+**New to the project?** Start here:
+
+👉 **[Getting Started Guide](docs/GETTING_STARTED.md)** - Complete setup
+instructions for running the MVP locally
+
+### Quick Commands
+
+```bash
+# Setup databases
+MySQL -u root -p < scripts/init-database.sql
+
+# Start backend (Terminal 1)
+cd backend && npm install && cp .env.example .env && npm run dev
+
+# Start frontend (Terminal 2)
+cd frontend/web && npm install && npm run dev
+```
+
+Then open `http://localhost:5173` in your browser!
+
 ## Documentation
 
 - **User Documentation**: `docs/user-docs/`
@@ -39,7 +61,30 @@ capabilities.
 
 ## Development
 
-See `docs/tech-docs/DEVELOPMENT.md` for setup and development instructions.
+### For New Developers
+
+👉 **Start Here**: [`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md) -
+Complete step-by-step setup guide
+
+### Platform-Specific Guides
+
+- **Backend**:
+  [`docs/tech-docs/BACKEND_SETUP.md`](docs/tech-docs/BACKEND_SETUP.md) - Backend
+  API setup
+- **Web Frontend**:
+  [`docs/tech-docs/WEB_FRONTEND_SETUP.md`](docs/tech-docs/WEB_FRONTEND_SETUP.md) -
+  React web app setup
+- **Android**:
+  [`docs/tech-docs/ANDROID_SETUP.md`](docs/tech-docs/ANDROID_SETUP.md) - Android
+  app setup (coming soon)
+
+### Additional Documentation
+
+- **Development Guide**:
+  [`docs/tech-docs/DEVELOPMENT.md`](docs/tech-docs/DEVELOPMENT.md) - Development
+  workflow and best practices
+- **Quick Start**: [`docs/tasks/QUICK_START.md`](docs/tasks/QUICK_START.md) -
+  Fast setup reference
 
 ## License
 

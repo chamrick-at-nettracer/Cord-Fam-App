@@ -16,6 +16,9 @@
 MySQL -u root -p < scripts/init-database.sql
 ```
 
+**Note**: Replace `root` with your MySQL username if different. You'll be
+prompted for your MySQL password.
+
 #### MongoDB
 
 MongoDB will create the database automatically on first connection.

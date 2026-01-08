@@ -40,12 +40,15 @@ npm run dev
 ### 4. Database Setup
 
 ```bash
-# MySQL
-MySQL -u root -p < scripts/init-MySQL.sql
+# MySQL - Create database and tables
+MySQL -u root -p < scripts/init-database.sql
 
-# MongoDB
-mongosh < scripts/init-MongoDB.js
+# MongoDB - No setup needed, database created automatically on first connection
+# Just verify MongoDB is running:
+mongosh --eval "db.adminCommand('ping')"
 ```
+
+**Note**: Replace `root` with your MySQL username if different.
 
 ## Development Workflow
 
