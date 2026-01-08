@@ -12,6 +12,7 @@ export class MessageService {
     // Get unique user IDs and fetch user data
     const userIds = [...new Set(messages.map((m) => m.user_id))];
     const users = await Promise.all(userIds.map((id) => this.userRepository.findById(id)));
+
     const userMap = new Map(
       users.filter((u): u is NonNullable<typeof u> => u !== null).map((u) => [u.id, u])
     );

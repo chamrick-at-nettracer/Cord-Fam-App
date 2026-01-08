@@ -57,10 +57,8 @@ export default function SettingsPage() {
 
       if (normalizedColor && /^#[0-9A-F]{6}$/.test(normalizedColor)) {
         updates.preferred_color = normalizedColor;
-        console.log('Sending preferred_color update:', normalizedColor);
       } else if (normalizedColor === '' || normalizedColor === '#') {
         updates.preferred_color = null;
-        console.log('Clearing preferred_color');
       } else {
         // Invalid color format - show error instead of silently ignoring
         setError(
@@ -70,9 +68,7 @@ export default function SettingsPage() {
         return;
       }
 
-      const updatedUser = await updateProfile(updates);
-      console.log('Profile updated successfully. Updated user:', updatedUser);
-      console.log('Preferred color in response:', updatedUser.preferred_color);
+      await updateProfile(updates);
       setSuccess('Profile updated successfully!');
     } catch (err) {
       const errorMessage =
@@ -169,9 +165,7 @@ export default function SettingsPage() {
                 type="color"
                 value={preferredColor}
                 onChange={(e) => {
-                  const newColor = e.target.value.toUpperCase();
-                  console.log('Color picker changed to:', newColor);
-                  setPreferredColor(newColor);
+                  setPreferredColor(e.target.value.toUpperCase());
                 }}
                 style={{
                   width: '60px',
@@ -186,9 +180,7 @@ export default function SettingsPage() {
                 label="Hex Color"
                 value={preferredColor}
                 onChange={(e) => {
-                  const newColor = e.target.value.toUpperCase();
-                  console.log('Text input changed to:', newColor);
-                  setPreferredColor(newColor);
+                  setPreferredColor(e.target.value.toUpperCase());
                 }}
                 inputProps={{ pattern: '^#[0-9A-F]{6}$', maxLength: 7 }}
                 helperText={

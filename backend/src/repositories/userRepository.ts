@@ -22,7 +22,27 @@ export class UserRepository {
   async findById(id: number): Promise<User | null> {
     const pool = mysqlConnection.getPool();
     const [rows] = await pool.execute<RowDataPacket[]>('SELECT * FROM users WHERE id = ?', [id]);
-    return rows.length > 0 ? (rows[0] as User) : null;
+    if (rows.length > 0) {
+      const rawRow = rows[0] as RowDataPacket;
+
+      // Map RowDataPacket to User type explicitly
+      // Handle null values properly - convert null to undefined for optional fields
+      const user: User = {
+        id: rawRow.id,
+        email: rawRow.email,
+        username: rawRow.username,
+        password_hash: rawRow.password_hash,
+        first_name: rawRow.first_name ?? undefined,
+        last_name: rawRow.last_name ?? undefined,
+        avatar_url: rawRow.avatar_url ?? undefined,
+        preferred_color: rawRow.preferred_color ?? undefined,
+        created_at: rawRow.created_at,
+        updated_at: rawRow.updated_at,
+      };
+
+      return user;
+    }
+    return null;
   }
 
   async create(input: CreateUserInput & { password_hash: string }): Promise<User> {

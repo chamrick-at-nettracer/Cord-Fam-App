@@ -23,7 +23,11 @@ export default function MessageItem({ user, content, createdAt }: MessageItemPro
     .toUpperCase()
     .slice(0, 2);
 
-  const avatarColor = user.preferred_color || '#1976d2';
+  // Ensure color is valid hex format, fallback to default blue
+  let avatarColor = '#1976d2'; // Default MUI blue
+  if (user.preferred_color && /^#[0-9A-Fa-f]{6}$/.test(user.preferred_color)) {
+    avatarColor = user.preferred_color;
+  }
 
   const date = new Date(createdAt);
   const relativeTime = formatDistanceToNow(date, { addSuffix: true });
