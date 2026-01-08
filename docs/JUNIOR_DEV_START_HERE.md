@@ -24,7 +24,8 @@ Open your terminal and run:
 node --version    # Need v20+ ✅
 npm --version     # Need v10+ ✅
 MySQL --version   # Need 8.0+ ✅
-mongosh --version # Need 7.0+ (or mongod --version)
+mongosh --eval "db.version()" # Need 7.0+ (MongoDB server version)
+# Or: mongod --version
 ```
 
 **If something is missing**, see the "Installing Missing Software" section at
@@ -124,8 +125,22 @@ mongosh --eval "db.adminCommand('ping')"
 
 **Expected**: Should return `{ ok: 1 }`
 
-**Note**: If you get "command not found", MongoDB might not be installed. See
-"Installing Missing Software" below.
+**Check MongoDB server version** (to verify it's 7.0+):
+
+```bash
+mongosh --eval "db.version()"
+# Or: mongod --version
+```
+
+**Expected**: Should show version like `8.2.3` or `7.0.x` (any 7.0+ is fine)
+
+**Note**:
+
+- `mongosh --version` shows the shell client version (not what we need)
+- `mongosh --eval "db.version()"` or `mongod --version` shows the MongoDB server
+  version (this is what matters)
+- If you get "command not found", MongoDB might not be installed. See
+  "Installing Missing Software" below.
 
 ---
 

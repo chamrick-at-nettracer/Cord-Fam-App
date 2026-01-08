@@ -11,9 +11,14 @@ Open your terminal and check what's installed:
 node --version    # Need v20.x.x or higher
 npm --version     # Need v10.x.x or higher
 MySQL --version   # Need 8.0.x or higher
-mongosh --version # Need 7.0.x or higher (or mongod --version)
+mongosh --eval "db.version()" # Need 7.0.x or higher (MongoDB server)
+# Or: mongod --version
 git --version
 ```
+
+**Note**: `mongosh --version` shows the shell client version (like 2.5.10), not
+the MongoDB server version. Use `mongosh --eval "db.version()"` or
+`mongod --version` to check the actual server version.
 
 ### If Something is Missing
 

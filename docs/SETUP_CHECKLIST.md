@@ -7,7 +7,13 @@ Use this checklist to verify your setup step-by-step.
 - [ ] Node.js installed (`node --version` shows v20+)
 - [ ] npm installed (`npm --version` shows v10+)
 - [ ] MySQL installed (`MySQL --version` shows 8.0+)
-- [ ] MongoDB installed (`mongosh --version` or `mongod --version`)
+- [ ] MongoDB installed (`mongosh --eval "db.version()"` shows 7.0+ or
+      `mongod --version` shows 7.0+)
+
+**Note**: `mongosh --version` shows the shell client version, not the server
+version. Use `mongosh --eval "db.version()"` or `mongod --version` to check the
+MongoDB server version.
+
 - [ ] Git installed (`git --version`)
 
 ## ✅ Repository Setup

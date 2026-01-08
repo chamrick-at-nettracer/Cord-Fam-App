@@ -31,9 +31,14 @@ Before you begin, ensure you have the following installed:
 node --version    # Should be v20.x.x or higher
 npm --version     # Should be 10.x.x or higher
 MySQL --version   # Should be 8.0.x or higher (MySQL)
-mongosh --version # Should be 7.0.x or higher (MongoDB)
+mongosh --eval "db.version()" # Should be 7.0.x or higher (MongoDB server)
+# Or: mongod --version
 git --version
 ```
+
+**Note**: `mongosh --version` shows the shell client version, not the MongoDB
+server version. Use `mongosh --eval "db.version()"` or `mongod --version` to
+check the server version.
 
 ---
 
