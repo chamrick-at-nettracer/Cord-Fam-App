@@ -13,7 +13,12 @@
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"!**/node_modules/**\" \"!**/dist/**\" \"!**/build/**\" \"!**/.git/**\"",
     "fix:md": "./tooling/fix-markdown.sh",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\" --ignore-path .prettierignore",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\" --ignore-path .prettierignore"
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\" --ignore-path .prettierignore",
+    "maintenance": "node scripts/maintenance.js",
+    "maintenance:outdated": "node scripts/maintenance-outdated.js",
+    "maintenance:audit": "node scripts/maintenance-audit.js",
+    "maintenance:knip": "node scripts/maintenance-knip.js",
+    "maintenance:quality": "node scripts/maintenance-quality.js"
   },
   "repository": {
     "type": "git",
