@@ -62,9 +62,10 @@ describe('AuthService', () => {
 
       mockUserRepository.findByEmail.mockResolvedValue(null);
       mockUserRepository.findByUsername.mockResolvedValue(null);
-      (bcrypt.hash as jest.Mock).mockResolvedValue(hashedPassword);
+      // Type assertion: bcrypt.hash is mocked, so we cast to Mock type
+      (bcrypt.hash as any).mockResolvedValue(hashedPassword);
       mockUserRepository.create.mockResolvedValue(createdUser);
-      (jwt.sign as jest.Mock).mockReturnValue('mock_token');
+      (jwt.sign as any).mockReturnValue('mock_token');
 
       const result = await authService.register(input);
 
@@ -134,8 +135,8 @@ describe('AuthService', () => {
       };
 
       mockUserRepository.findByEmail.mockResolvedValue(user as any);
-      (bcrypt.compare as jest.Mock).mockResolvedValue(true);
-      (jwt.sign as jest.Mock).mockReturnValue('mock_token');
+      (bcrypt.compare as any).mockResolvedValue(true);
+      (jwt.sign as any).mockReturnValue('mock_token');
 
       const result = await authService.login(input);
 
@@ -163,7 +164,7 @@ describe('AuthService', () => {
       };
 
       mockUserRepository.findByEmail.mockResolvedValue(user as any);
-      (bcrypt.compare as jest.Mock).mockResolvedValue(false);
+      (bcrypt.compare as any).mockResolvedValue(false);
 
       await expect(
         authService.login({ email: 'test@example.com', password: 'wrongpassword' })

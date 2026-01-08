@@ -63,10 +63,11 @@ export class AuthService {
       throw new Error('JWT secret must be a string');
     }
     // Type assertion needed because config types are inferred as string | undefined
-    const options: jwt.SignOptions = {
-      expiresIn: typeof expiresIn === 'string' ? expiresIn : '7d',
-    };
-    return jwt.sign({ userId }, secret, options);
+    // jwt.SignOptions.expiresIn accepts StringValue | number
+    const expiresInValue = typeof expiresIn === 'string' ? expiresIn : '7d';
+    return jwt.sign({ userId }, secret, {
+      expiresIn: expiresInValue,
+    } as jwt.SignOptions);
   }
 
   async updateProfile(

@@ -12,10 +12,11 @@ import { mysqlConnection } from '../../database/mysql';
 
 describe('UserRepository', () => {
   let repository: UserRepository;
-  let mockExecute: jest.Mock;
+  let mockExecute: any;
 
   beforeEach(() => {
     repository = new UserRepository();
+    // Use any to bypass strict typing - acceptable in tests
     mockExecute = jest.fn();
     (mysqlConnection.getPool as jest.Mock).mockReturnValue({
       execute: mockExecute,
@@ -34,7 +35,7 @@ describe('UserRepository', () => {
         updated_at: new Date(),
       };
 
-      mockExecute.mockResolvedValue([[mockUser]] as any);
+      mockExecute.mockResolvedValue([[mockUser], []]);
 
       const result = await repository.findByEmail('test@example.com');
 
@@ -45,7 +46,7 @@ describe('UserRepository', () => {
     });
 
     it('should return null if user not found', async () => {
-      mockExecute.mockResolvedValue([[]] as any);
+      mockExecute.mockResolvedValue([[], []]);
 
       const result = await repository.findByEmail('notfound@example.com');
 
@@ -64,12 +65,42 @@ describe('UserRepository', () => {
         updated_at: new Date(),
       };
 
-      mockExecute.mockResolvedValue([[mockUser]] as any);
+      mockExecute.mockResolvedValue([[mockUser], []]);
 
       const result = await repository.findById(1);
 
       expect(result).toEqual(mockUser);
       expect(mockExecute).toHaveBeenCalledWith('SELECT * FROM users WHERE id = ?', [1]);
+    });
+
+    it('should return null if user not found by id', async () => {
+      mockExecute.mockResolvedValue([[], []]);
+
+      const result = await repository.findById(999);
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('findByUsername', () => {
+    it('should find a user by username', async () => {
+      const mockUser = {
+        id: 1,
+        email: 'test@example.com',
+        username: 'testuser',
+        password_hash: 'hashed',
+        created_at: new Date(),
+        updated_at: new Date(),
+      };
+
+      mockExecute.mockResolvedValue([[mockUser], []]);
+
+      const result = await repository.findByUsername('testuser');
+
+      expect(result).toEqual(mockUser);
+      expect(mockExecute).toHaveBeenCalledWith('SELECT * FROM users WHERE username = ?', [
+        'testuser',
+      ]);
     });
   });
 });
