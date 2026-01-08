@@ -14,7 +14,51 @@ export async function messageRoutes(fastify: FastifyInstance) {
 
   fastify.get(
     '/:channelId/messages',
-    { preHandler: authenticate },
+    {
+      preHandler: authenticate,
+      schema: {
+        description: 'Get messages for a channel',
+        tags: ['messages'],
+        security: [{ bearerAuth: [] }],
+        params: {
+          type: 'object',
+          properties: {
+            channelId: { type: 'number' },
+          },
+        },
+        response: {
+          200: {
+            description: 'List of messages',
+            type: 'object',
+            properties: {
+              success: { type: 'boolean' },
+              data: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    id: { type: 'string' },
+                    channel_id: { type: 'number' },
+                    user_id: { type: 'number' },
+                    user: {
+                      type: 'object',
+                      properties: {
+                        id: { type: 'number' },
+                        username: { type: 'string' },
+                        first_name: { type: 'string' },
+                        last_name: { type: 'string' },
+                      },
+                    },
+                    content: { type: 'string' },
+                    created_at: { type: 'string', format: 'date-time' },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     async (request: AuthenticatedRequest, reply) => {
       try {
         const channelId = parseInt((request.params as { channelId: string }).channelId, 10);
@@ -42,7 +86,60 @@ export async function messageRoutes(fastify: FastifyInstance) {
 
   fastify.post(
     '/:channelId/messages',
-    { preHandler: authenticate },
+    {
+      preHandler: authenticate,
+      schema: {
+        description: 'Send a message to a channel',
+        tags: ['messages'],
+        security: [{ bearerAuth: [] }],
+        params: {
+          type: 'object',
+          properties: {
+            channelId: { type: 'number' },
+          },
+        },
+        body: {
+          type: 'object',
+          required: ['content'],
+          properties: {
+            content: { type: 'string', minLength: 1 },
+          },
+        },
+        response: {
+          201: {
+            description: 'Message created successfully',
+            type: 'object',
+            properties: {
+              success: { type: 'boolean' },
+              data: {
+                type: 'object',
+                properties: {
+                  id: { type: 'string' },
+                  channel_id: { type: 'number' },
+                  user_id: { type: 'number' },
+                  content: { type: 'string' },
+                  created_at: { type: 'string', format: 'date-time' },
+                },
+              },
+            },
+          },
+          400: {
+            description: 'Validation error',
+            type: 'object',
+            properties: {
+              success: { type: 'boolean' },
+              error: {
+                type: 'object',
+                properties: {
+                  code: { type: 'string' },
+                  message: { type: 'string' },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     async (request: AuthenticatedRequest, reply) => {
       try {
         const channelId = parseInt((request.params as { channelId: string }).channelId, 10);

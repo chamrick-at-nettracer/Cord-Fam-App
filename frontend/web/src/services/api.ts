@@ -1,7 +1,6 @@
 import axios from 'axios';
-import type { ApiResponse } from '../types/api';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+const API_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000/api/v1';
 
 const api = axios.create({
   baseURL: API_URL,

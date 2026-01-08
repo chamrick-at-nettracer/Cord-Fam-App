@@ -23,7 +23,7 @@ import {
   Alert,
   IconButton,
 } from '@mui/material';
-import { Add as AddIcon, Settings as SettingsIcon } from '@mui/icons-material';
+import { Add as AddIcon, Settings as SettingsIcon, Help as HelpIcon } from '@mui/icons-material';
 
 const DRAWER_WIDTH = 300;
 
@@ -139,6 +139,9 @@ export default function DashboardPage() {
               ? `${user.first_name} ${user.last_name}`
               : user?.first_name || user?.username}
           </Typography>
+          <IconButton color="inherit" onClick={() => navigate('/help')} sx={{ mr: 1 }}>
+            <HelpIcon />
+          </IconButton>
           <IconButton color="inherit" onClick={() => navigate('/settings')} sx={{ mr: 1 }}>
             <SettingsIcon />
           </IconButton>

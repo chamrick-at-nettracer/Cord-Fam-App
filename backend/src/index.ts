@@ -2,6 +2,8 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
+import swagger from '@fastify/swagger';
+import swaggerUi from '@fastify/swagger-ui';
 import { config } from './config';
 import { logger } from './utils/logger';
 import { mysqlConnection } from './database/mysql';
@@ -27,6 +29,47 @@ const server = Fastify({
 
 async function start() {
   try {
+    // Register Swagger
+    await server.register(swagger, {
+      openapi: {
+        info: {
+          title: 'Cord-Fam-App API',
+          description: 'Family collaboration platform API - Communication, Tasks, and Notes',
+          version: '1.0.0',
+        },
+        servers: [
+          {
+            url: 'http://localhost:3000',
+            description: 'Development server',
+          },
+        ],
+        tags: [
+          { name: 'auth', description: 'Authentication endpoints' },
+          { name: 'channels', description: 'Channel management endpoints' },
+          { name: 'messages', description: 'Message endpoints' },
+        ],
+        components: {
+          securitySchemes: {
+            bearerAuth: {
+              type: 'http',
+              scheme: 'bearer',
+              bearerFormat: 'JWT',
+            },
+          },
+        },
+      },
+    });
+
+    await server.register(swaggerUi, {
+      routePrefix: '/api-docs',
+      uiConfig: {
+        docExpansion: 'list',
+        deepLinking: false,
+      },
+      staticCSP: true,
+      transformStaticCSP: (header) => header,
+    });
+
     // Register plugins
     await server.register(cors, {
       origin: true,
