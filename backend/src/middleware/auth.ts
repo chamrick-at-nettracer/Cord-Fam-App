@@ -13,7 +13,10 @@ export async function authenticate(
   try {
     const authHeader = request.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      reply.code(401).send({ success: false, error: { code: 'UNAUTHORIZED', message: 'Authentication required' } });
+      reply.code(401).send({
+        success: false,
+        error: { code: 'UNAUTHORIZED', message: 'Authentication required' },
+      });
       return;
     }
 
@@ -21,6 +24,8 @@ export async function authenticate(
     const decoded = jwt.verify(token, config.jwt.secret) as { userId: number };
     request.userId = decoded.userId;
   } catch (error) {
-    reply.code(401).send({ success: false, error: { code: 'UNAUTHORIZED', message: 'Invalid token' } });
+    reply
+      .code(401)
+      .send({ success: false, error: { code: 'UNAUTHORIZED', message: 'Invalid token' } });
   }
 }

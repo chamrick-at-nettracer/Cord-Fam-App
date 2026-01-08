@@ -57,9 +57,16 @@ export class AuthService {
   }
 
   private generateToken(userId: number): string {
-    return jwt.sign({ userId }, config.jwt.secret, {
-      expiresIn: config.jwt.expiresIn,
-    });
+    const secret = config.jwt.secret;
+    const expiresIn = config.jwt.expiresIn;
+    if (typeof secret !== 'string') {
+      throw new Error('JWT secret must be a string');
+    }
+    // Type assertion needed because config types are inferred as string | undefined
+    const options: jwt.SignOptions = {
+      expiresIn: typeof expiresIn === 'string' ? expiresIn : '7d',
+    };
+    return jwt.sign({ userId }, secret, options);
   }
 
   async updateProfile(

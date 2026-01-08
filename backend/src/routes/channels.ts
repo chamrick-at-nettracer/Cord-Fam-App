@@ -12,7 +12,7 @@ const createChannelSchema = z.object({
 export async function channelRoutes(fastify: FastifyInstance) {
   const channelService = new ChannelService();
 
-  fastify.get('/', { preHandler: authenticate }, async (request: AuthenticatedRequest, reply) => {
+  fastify.get('/', { preHandler: authenticate }, async (_request: AuthenticatedRequest, reply) => {
     try {
       const channels = await channelService.getAllChannels();
       reply.code(200).send({
@@ -69,7 +69,7 @@ export async function channelRoutes(fastify: FastifyInstance) {
           error: {
             code: 'VALIDATION_ERROR',
             message: 'Invalid input',
-            details: error.errors,
+            details: error.issues,
           },
         });
         return;

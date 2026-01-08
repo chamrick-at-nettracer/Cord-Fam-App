@@ -13,7 +13,7 @@ class MongoDBConnection {
       this.db = this.client.db();
       logger.info('MongoDB connected');
     } catch (error) {
-      logger.error('MongoDB connection failed:', error);
+      logger.error(error, 'MongoDB connection failed');
       throw error;
     }
   }

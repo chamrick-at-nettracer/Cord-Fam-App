@@ -278,8 +278,59 @@ Use this checklist every Friday:
 - [ ] Update patch/minor versions (test first)
 - [ ] Review and remove unused code (Knip findings)
 - [ ] Run code quality checks
+- [ ] **Increment test coverage threshold by 5%** (see below)
 - [ ] Commit dependency updates
 - [ ] Update `docs/tasks/PROGRESS.md` with maintenance notes
+
+### Increment Test Coverage Threshold
+
+**Goal**: Gradually increase coverage from 40% to 90% over 10 weeks.
+
+**Current threshold**: 40% (as of 2026-01-27)
+
+**Process**:
+
+1. **Check current threshold**:
+   - Backend: `backend/jest.config.js` → `coverageThreshold.global`
+   - Frontend: `frontend/web/Vite.config.ts` → `test.coverage.thresholds`
+
+2. **Increment by 5%** (if current < 90%):
+   - Update all four metrics: `branches`, `functions`, `lines`, `statements`
+   - Example: 40% → 45%, then 45% → 50%, etc.
+
+3. **Update pre-commit hook**:
+   - Edit `.husky/pre-commit`
+   - Update the threshold check from current to new value
+   - Update the threshold display message
+
+4. **Run tests to verify**:
+
+   ```bash
+   cd backend && npm run test:coverage
+   cd ../frontend/web && npm run test:coverage
+   ```
+
+5. **If coverage is below new threshold**:
+   - Add more tests to meet the new threshold
+   - Or keep threshold at current level until next week
+
+6. **Document the change**:
+   - Update this file with new threshold
+   - Note in `docs/tasks/PROGRESS.md`
+
+**Schedule**:
+
+- Week 1 (2026-01-27): 40% (starting point)
+- Week 2: 45%
+- Week 3: 50%
+- Week 4: 55%
+- Week 5: 60%
+- Week 6: 65%
+- Week 7: 70%
+- Week 8: 75%
+- Week 9: 80%
+- Week 10: 85%
+- Week 11: 90% (target reached)
 
 ---
 

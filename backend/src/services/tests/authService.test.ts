@@ -1,10 +1,9 @@
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 import { AuthService } from '../authService';
-import { UserRepository } from '../../repositories/userRepository';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { config } from '../../config';
 
+// Mock dependencies
 jest.mock('../../repositories/userRepository');
 jest.mock('bcrypt');
 jest.mock('jsonwebtoken');
@@ -17,11 +16,14 @@ jest.mock('../../config', () => ({
   },
 }));
 
+import { UserRepository } from '../../repositories/userRepository';
+
 describe('AuthService', () => {
   let authService: AuthService;
   let mockUserRepository: jest.Mocked<UserRepository>;
 
   beforeEach(() => {
+    // Create mock repository instance
     mockUserRepository = {
       findByEmail: jest.fn(),
       findByUsername: jest.fn(),
@@ -30,7 +32,8 @@ describe('AuthService', () => {
       update: jest.fn(),
     } as any;
 
-    (UserRepository as jest.Mock) = jest.fn().mockImplementation(() => mockUserRepository);
+    // Mock the UserRepository constructor
+    (UserRepository as jest.Mock).mockImplementation(() => mockUserRepository);
     authService = new AuthService();
     jest.clearAllMocks();
   });

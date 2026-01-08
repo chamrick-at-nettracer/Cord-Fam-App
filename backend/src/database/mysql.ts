@@ -24,7 +24,7 @@ class MySQLConnection {
       connection.release();
       logger.info('MySQL connection pool created');
     } catch (error) {
-      logger.error('MySQL connection failed:', error);
+      logger.error(error, 'MySQL connection failed');
       throw error;
     }
   }

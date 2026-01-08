@@ -158,10 +158,14 @@ if (mdResult.output.includes('error') || mdResult.output.includes('violation')) 
 
 log('\nPrettier formatting:');
 const prettierResult = runCommand('npm run format:check 2>&1 || true');
-if (prettierResult.output.includes('error') || prettierResult.output.includes('All matched files')) {
-  const hasErrors = prettierResult.output.includes('error') ||
-                   (prettierResult.output.includes('All matched files') &&
-                    !prettierResult.output.includes('All matched files use Prettier'));
+if (
+  prettierResult.output.includes('error') ||
+  prettierResult.output.includes('All matched files')
+) {
+  const hasErrors =
+    prettierResult.output.includes('error') ||
+    (prettierResult.output.includes('All matched files') &&
+      !prettierResult.output.includes('All matched files use Prettier'));
   if (hasErrors) {
     log(`  ⚠️  Formatting issues found`);
     log(`     Run: npm run format`);

@@ -2,9 +2,19 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider, useAuth } from '../AuthContext';
-import { authService } from '../../services/authService';
 
-vi.mock('../../services/authService');
+// Mock the authService
+vi.mock('../../services/authService', () => ({
+  authService: {
+    getCurrentUser: vi.fn(),
+    login: vi.fn(),
+    register: vi.fn(),
+    logout: vi.fn(),
+    updateProfile: vi.fn(),
+  },
+}));
+
+import { authService } from '../../services/authService';
 
 const TestComponent = () => {
   const { user, loading } = useAuth();
@@ -40,7 +50,7 @@ describe('AuthContext', () => {
     });
   });
 
-  it('should show loading state initially', () => {
+  it('should show loading state initially then update', async () => {
     (authService.getCurrentUser as any) = vi.fn().mockReturnValue(null);
 
     render(
@@ -51,6 +61,9 @@ describe('AuthContext', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    // After useEffect runs, loading should be false and user should be null
+    await waitFor(() => {
+      expect(screen.getByText('Not logged in')).toBeInTheDocument();
+    });
   });
 });

@@ -34,7 +34,7 @@ export async function authRoutes(fastify: FastifyInstance) {
           error: {
             code: 'VALIDATION_ERROR',
             message: 'Invalid input',
-            details: error.errors,
+            details: error.issues,
           },
         });
         return;
@@ -64,7 +64,7 @@ export async function authRoutes(fastify: FastifyInstance) {
           error: {
             code: 'VALIDATION_ERROR',
             message: 'Invalid input',
-            details: error.errors,
+            details: error.issues,
           },
         });
         return;
@@ -109,7 +109,7 @@ export async function authRoutes(fastify: FastifyInstance) {
             error: {
               code: 'VALIDATION_ERROR',
               message: 'Invalid input',
-              details: error.errors,
+              details: error.issues,
             },
           });
           return;

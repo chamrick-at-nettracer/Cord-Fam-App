@@ -1,15 +1,25 @@
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 import { UserRepository } from '../userRepository';
-import { mysqlConnection } from '../../database/mysql';
 
-// Mock the database connection
-jest.mock('../../database/mysql');
+// Mock the database connection module
+jest.mock('../../database/mysql', () => ({
+  mysqlConnection: {
+    getPool: jest.fn(),
+  },
+}));
+
+import { mysqlConnection } from '../../database/mysql';
 
 describe('UserRepository', () => {
   let repository: UserRepository;
+  let mockExecute: jest.Mock;
 
   beforeEach(() => {
     repository = new UserRepository();
+    mockExecute = jest.fn();
+    (mysqlConnection.getPool as jest.Mock).mockReturnValue({
+      execute: mockExecute,
+    });
     jest.clearAllMocks();
   });
 
@@ -24,26 +34,18 @@ describe('UserRepository', () => {
         updated_at: new Date(),
       };
 
-      const mockPool = {
-        execute: jest.fn().mockResolvedValue([[mockUser]]),
-      };
-
-      (mysqlConnection.getPool as jest.Mock) = jest.fn().mockReturnValue(mockPool);
+      mockExecute.mockResolvedValue([[mockUser]] as any);
 
       const result = await repository.findByEmail('test@example.com');
 
       expect(result).toEqual(mockUser);
-      expect(mockPool.execute).toHaveBeenCalledWith('SELECT * FROM users WHERE email = ?', [
+      expect(mockExecute).toHaveBeenCalledWith('SELECT * FROM users WHERE email = ?', [
         'test@example.com',
       ]);
     });
 
     it('should return null if user not found', async () => {
-      const mockPool = {
-        execute: jest.fn().mockResolvedValue([[]]),
-      };
-
-      (mysqlConnection.getPool as jest.Mock) = jest.fn().mockReturnValue(mockPool);
+      mockExecute.mockResolvedValue([[]] as any);
 
       const result = await repository.findByEmail('notfound@example.com');
 
@@ -62,15 +64,12 @@ describe('UserRepository', () => {
         updated_at: new Date(),
       };
 
-      const mockPool = {
-        execute: jest.fn().mockResolvedValue([[mockUser]]),
-      };
-
-      (mysqlConnection.getPool as jest.Mock) = jest.fn().mockReturnValue(mockPool);
+      mockExecute.mockResolvedValue([[mockUser]] as any);
 
       const result = await repository.findById(1);
 
       expect(result).toEqual(mockUser);
+      expect(mockExecute).toHaveBeenCalledWith('SELECT * FROM users WHERE id = ?', [1]);
     });
   });
 });

@@ -1,9 +1,18 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { authService } from '../authService';
-import api from '../api';
 import type { AuthResponse, User } from '../../types/api';
 
-vi.mock('../api');
+// Mock the api module
+vi.mock('../api', () => {
+  return {
+    default: {
+      post: vi.fn(),
+      put: vi.fn(),
+    },
+  };
+});
+
+import api from '../api';
 
 describe('authService', () => {
   beforeEach(() => {
