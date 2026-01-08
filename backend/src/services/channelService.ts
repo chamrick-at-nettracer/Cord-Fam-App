@@ -29,7 +29,15 @@ export class ChannelService {
     return await this.channelRepository.isMember(channelId, userId);
   }
 
-  private toChannelResponse(channel: { id: number; name: string; description?: string; created_by: number; is_private: boolean; created_at: Date; updated_at: Date }): ChannelResponse {
+  private toChannelResponse(channel: {
+    id: number;
+    name: string;
+    description?: string;
+    created_by: number;
+    is_private: boolean;
+    created_at: Date;
+    updated_at: Date;
+  }): ChannelResponse {
     return {
       id: channel.id,
       name: channel.name,

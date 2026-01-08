@@ -69,6 +69,21 @@ This installs git hooks and tooling. Wait for it to finish.
 brew services start MySQL
 # Check if running:
 brew services list | grep MySQL
+# Should show: MySQL  started  ...
+```
+
+**If MySQL won't start** (bootstrap error):
+
+```bash
+# Try stopping and restarting:
+brew services stop MySQL
+brew services start MySQL
+
+# Or check logs:
+tail -f /opt/homebrew/var/MySQL/*.err
+
+# Or start manually to see errors:
+mysqld_safe --user=$(whoami) &
 ```
 
 **Linux**:

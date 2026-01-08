@@ -9,7 +9,11 @@ export class MessageService {
     return messages.map(this.toMessageResponse).reverse(); // Reverse to show oldest first
   }
 
-  async createMessage(input: CreateMessageInput, channelId: number, userId: number): Promise<MessageResponse> {
+  async createMessage(
+    input: CreateMessageInput,
+    channelId: number,
+    userId: number
+  ): Promise<MessageResponse> {
     const message = await this.messageRepository.create({
       ...input,
       channel_id: channelId,
@@ -18,7 +22,16 @@ export class MessageService {
     return this.toMessageResponse(message);
   }
 
-  private toMessageResponse(message: { _id?: string; channel_id: number; user_id: number; content: string; attachments?: Array<{ file_id: string; filename: string; mime_type: string; size: number }>; edited_at?: Date; created_at: Date; updated_at: Date }): MessageResponse {
+  private toMessageResponse(message: {
+    _id?: string;
+    channel_id: number;
+    user_id: number;
+    content: string;
+    attachments?: Array<{ file_id: string; filename: string; mime_type: string; size: number }>;
+    edited_at?: Date;
+    created_at: Date;
+    updated_at: Date;
+  }): MessageResponse {
     return {
       id: message._id?.toString() || '',
       channel_id: message.channel_id,

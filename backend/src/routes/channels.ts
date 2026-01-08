@@ -30,24 +30,28 @@ export async function channelRoutes(fastify: FastifyInstance) {
     }
   });
 
-  fastify.get('/:id', { preHandler: authenticate }, async (request: AuthenticatedRequest, reply) => {
-    try {
-      const id = parseInt((request.params as { id: string }).id, 10);
-      const channel = await channelService.getChannelById(id);
-      reply.code(200).send({
-        success: true,
-        data: channel,
-      });
-    } catch (error) {
-      reply.code(404).send({
-        success: false,
-        error: {
-          code: 'NOT_FOUND',
-          message: error instanceof Error ? error.message : 'Channel not found',
-        },
-      });
+  fastify.get(
+    '/:id',
+    { preHandler: authenticate },
+    async (request: AuthenticatedRequest, reply) => {
+      try {
+        const id = parseInt((request.params as { id: string }).id, 10);
+        const channel = await channelService.getChannelById(id);
+        reply.code(200).send({
+          success: true,
+          data: channel,
+        });
+      } catch (error) {
+        reply.code(404).send({
+          success: false,
+          error: {
+            code: 'NOT_FOUND',
+            message: error instanceof Error ? error.message : 'Channel not found',
+          },
+        });
+      }
     }
-  });
+  );
 
   fastify.post('/', { preHandler: authenticate }, async (request: AuthenticatedRequest, reply) => {
     try {

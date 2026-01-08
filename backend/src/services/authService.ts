@@ -62,7 +62,14 @@ export class AuthService {
     });
   }
 
-  private toUserResponse(user: { id: number; email: string; username: string; first_name?: string; last_name?: string; avatar_url?: string }): UserResponse {
+  private toUserResponse(user: {
+    id: number;
+    email: string;
+    username: string;
+    first_name?: string;
+    last_name?: string;
+    avatar_url?: string;
+  }): UserResponse {
     return {
       id: user.id,
       email: user.email,

@@ -179,7 +179,10 @@ export default function DashboardPage() {
         </List>
       </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8, display: 'flex', flexDirection: 'column' }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, mt: 8, display: 'flex', flexDirection: 'column' }}
+      >
         {error && (
           <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError('')}>
             {error}
@@ -187,7 +190,9 @@ export default function DashboardPage() {
         )}
 
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
+          <Box
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}
+          >
             <CircularProgress />
           </Box>
         ) : selectedChannel ? (
@@ -235,13 +240,19 @@ export default function DashboardPage() {
                 }}
                 disabled={sending}
               />
-              <Button variant="contained" onClick={handleSendMessage} disabled={sending || !newMessage.trim()}>
+              <Button
+                variant="contained"
+                onClick={handleSendMessage}
+                disabled={sending || !newMessage.trim()}
+              >
                 Send
               </Button>
             </Box>
           </>
         ) : (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
+          <Box
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}
+          >
             <Typography variant="h6" color="text.secondary">
               Select a channel to start chatting
             </Typography>

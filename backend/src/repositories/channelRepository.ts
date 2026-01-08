@@ -13,10 +13,7 @@ export class ChannelRepository {
 
   async findById(id: number): Promise<Channel | null> {
     const pool = mysqlConnection.getPool();
-    const [rows] = await pool.execute<RowDataPacket[]>(
-      'SELECT * FROM channels WHERE id = ?',
-      [id]
-    );
+    const [rows] = await pool.execute<RowDataPacket[]>('SELECT * FROM channels WHERE id = ?', [id]);
     return rows.length > 0 ? (rows[0] as Channel) : null;
   }
 
@@ -34,10 +31,10 @@ export class ChannelRepository {
     }
 
     // Add creator as member
-    await pool.execute(
-      'INSERT INTO channel_members (channel_id, user_id) VALUES (?, ?)',
-      [result.insertId, input.created_by]
-    );
+    await pool.execute('INSERT INTO channel_members (channel_id, user_id) VALUES (?, ?)', [
+      result.insertId,
+      input.created_by,
+    ]);
 
     return channel;
   }

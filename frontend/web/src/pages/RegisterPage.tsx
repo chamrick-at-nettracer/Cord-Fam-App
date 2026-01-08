@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../store/AuthContext';
-import {
-  Container,
-  Paper,
-  TextField,
-  Button,
-  Typography,
-  Box,
-  Link,
-  Alert,
-} from '@mui/material';
+import { Container, Paper, TextField, Button, Typography, Box, Link, Alert } from '@mui/material';
 
 export default function RegisterPage() {
   const { register } = useAuth();

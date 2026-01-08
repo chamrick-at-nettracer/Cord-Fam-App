@@ -15,7 +15,9 @@ export class MessageRepository {
       .toArray();
   }
 
-  async create(input: CreateMessageInput & { channel_id: number; user_id: number }): Promise<Message> {
+  async create(
+    input: CreateMessageInput & { channel_id: number; user_id: number }
+  ): Promise<Message> {
     const collection = this.getCollection();
     const message: Message = {
       channel_id: input.channel_id,

@@ -12,83 +12,91 @@ export async function messageRoutes(fastify: FastifyInstance) {
   const channelService = new ChannelService();
   const messageService = new MessageService();
 
-  fastify.get('/:channelId/messages', { preHandler: authenticate }, async (request: AuthenticatedRequest, reply) => {
-    try {
-      const channelId = parseInt((request.params as { channelId: string }).channelId, 10);
-      const userId = request.userId!;
+  fastify.get(
+    '/:channelId/messages',
+    { preHandler: authenticate },
+    async (request: AuthenticatedRequest, reply) => {
+      try {
+        const channelId = parseInt((request.params as { channelId: string }).channelId, 10);
+        const userId = request.userId!;
 
-      // Check if user is member
-      const isMember = await channelService.isMember(channelId, userId);
-      if (!isMember) {
-        reply.code(403).send({
+        // Check if user is member
+        const isMember = await channelService.isMember(channelId, userId);
+        if (!isMember) {
+          reply.code(403).send({
+            success: false,
+            error: {
+              code: 'FORBIDDEN',
+              message: 'You are not a member of this channel',
+            },
+          });
+          return;
+        }
+
+        const messages = await messageService.getChannelMessages(channelId);
+        reply.code(200).send({
+          success: true,
+          data: messages,
+        });
+      } catch (error) {
+        reply.code(500).send({
           success: false,
           error: {
-            code: 'FORBIDDEN',
-            message: 'You are not a member of this channel',
+            code: 'FETCH_FAILED',
+            message: error instanceof Error ? error.message : 'Failed to fetch messages',
           },
         });
-        return;
       }
-
-      const messages = await messageService.getChannelMessages(channelId);
-      reply.code(200).send({
-        success: true,
-        data: messages,
-      });
-    } catch (error) {
-      reply.code(500).send({
-        success: false,
-        error: {
-          code: 'FETCH_FAILED',
-          message: error instanceof Error ? error.message : 'Failed to fetch messages',
-        },
-      });
     }
-  });
+  );
 
-  fastify.post('/:channelId/messages', { preHandler: authenticate }, async (request: AuthenticatedRequest, reply) => {
-    try {
-      const channelId = parseInt((request.params as { channelId: string }).channelId, 10);
-      const userId = request.userId!;
-      const body = createMessageSchema.parse(request.body);
+  fastify.post(
+    '/:channelId/messages',
+    { preHandler: authenticate },
+    async (request: AuthenticatedRequest, reply) => {
+      try {
+        const channelId = parseInt((request.params as { channelId: string }).channelId, 10);
+        const userId = request.userId!;
+        const body = createMessageSchema.parse(request.body);
 
-      // Check if user is member
-      const isMember = await channelService.isMember(channelId, userId);
-      if (!isMember) {
-        reply.code(403).send({
-          success: false,
-          error: {
-            code: 'FORBIDDEN',
-            message: 'You are not a member of this channel',
-          },
+        // Check if user is member
+        const isMember = await channelService.isMember(channelId, userId);
+        if (!isMember) {
+          reply.code(403).send({
+            success: false,
+            error: {
+              code: 'FORBIDDEN',
+              message: 'You are not a member of this channel',
+            },
+          });
+          return;
+        }
+
+        const message = await messageService.createMessage(body, channelId, userId);
+        reply.code(201).send({
+          success: true,
+          data: message,
         });
-        return;
-      }
-
-      const message = await messageService.createMessage(body, channelId, userId);
-      reply.code(201).send({
-        success: true,
-        data: message,
-      });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          reply.code(400).send({
+            success: false,
+            error: {
+              code: 'VALIDATION_ERROR',
+              message: 'Invalid input',
+              details: error.errors,
+            },
+          });
+          return;
+        }
         reply.code(400).send({
           success: false,
           error: {
-            code: 'VALIDATION_ERROR',
-            message: 'Invalid input',
-            details: error.errors,
+            code: 'CREATE_FAILED',
+            message: error instanceof Error ? error.message : 'Failed to create message',
           },
         });
-        return;
       }
-      reply.code(400).send({
-        success: false,
-        error: {
-          code: 'CREATE_FAILED',
-          message: error instanceof Error ? error.message : 'Failed to create message',
-        },
-      });
     }
-  });
+  );
 }
