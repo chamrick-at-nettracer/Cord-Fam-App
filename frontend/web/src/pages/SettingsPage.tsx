@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/AuthContext';
 import { useTheme } from '../store/ThemeContext';
 import {
@@ -13,9 +14,10 @@ import {
   FormControlLabel,
   Divider,
 } from '@mui/material';
-import { Brightness4, Brightness7 } from '@mui/icons-material';
+import { Brightness4, Brightness7, ArrowBack } from '@mui/icons-material';
 
 export default function SettingsPage() {
+  const navigate = useNavigate();
   const { user, updateProfile } = useAuth();
   const { mode, toggleMode } = useTheme();
   const [username, setUsername] = useState(user?.username || '');
@@ -177,9 +179,19 @@ export default function SettingsPage() {
 
           <Divider sx={{ my: 3 }} />
 
-          <Button type="submit" variant="contained" disabled={loading} sx={{ mt: 2 }}>
-            {loading ? 'Saving...' : 'Save Changes'}
-          </Button>
+          <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+            <Button
+              variant="outlined"
+              startIcon={<ArrowBack />}
+              onClick={() => navigate('/')}
+              disabled={loading}
+            >
+              Back to Dashboard
+            </Button>
+            <Button type="submit" variant="contained" disabled={loading}>
+              {loading ? 'Saving...' : 'Save Changes'}
+            </Button>
+          </Box>
         </Box>
       </Paper>
     </Container>
