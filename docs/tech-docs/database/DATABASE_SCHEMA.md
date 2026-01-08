@@ -3,6 +3,7 @@
 ## Overview
 
 Cord-Fam-App uses a hybrid database approach:
+
 - **MySQL**: Structured relational data
 - **MongoDB**: Flexible document data
 - **File System**: User-uploaded files
@@ -10,6 +11,7 @@ Cord-Fam-App uses a hybrid database approach:
 ## MySQL Schema
 
 ### Users Table
+
 ```sql
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -27,6 +29,7 @@ CREATE TABLE users (
 ```
 
 ### Projects Table
+
 ```sql
 CREATE TABLE projects (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -41,6 +44,7 @@ CREATE TABLE projects (
 ```
 
 ### Tasks Table
+
 ```sql
 CREATE TABLE tasks (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -63,6 +67,7 @@ CREATE TABLE tasks (
 ```
 
 ### Channels Table
+
 ```sql
 CREATE TABLE channels (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -78,6 +83,7 @@ CREATE TABLE channels (
 ```
 
 ### Channel Members Table
+
 ```sql
 CREATE TABLE channel_members (
     channel_id INT NOT NULL,
@@ -90,6 +96,7 @@ CREATE TABLE channel_members (
 ```
 
 ### Notebooks Table
+
 ```sql
 CREATE TABLE notebooks (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -106,6 +113,7 @@ CREATE TABLE notebooks (
 ## MongoDB Collections
 
 ### Messages Collection
+
 ```javascript
 {
   _id: ObjectId,
@@ -125,10 +133,12 @@ CREATE TABLE notebooks (
 ```
 
 Indexes:
+
 - `{ channel_id: 1, created_at: -1 }` - For channel message queries
 - `{ user_id: 1, created_at: -1 }` - For user message queries
 
 ### Direct Messages Collection
+
 ```javascript
 {
   _id: ObjectId,
@@ -151,9 +161,11 @@ Indexes:
 ```
 
 Indexes:
+
 - `{ participants: 1 }` - For finding conversations
 
 ### Notes Collection
+
 ```javascript
 {
   _id: ObjectId,
@@ -173,12 +185,14 @@ Indexes:
 ```
 
 Indexes:
+
 - `{ notebook_id: 1, created_at: -1 }` - For notebook queries
 - `{ user_id: 1, created_at: -1 }` - For user queries
 - `{ tags: 1 }` - For tag queries
 - `{ title: "text", content: "text" }` - Full-text search
 
 ### Recipes Collection
+
 ```javascript
 {
   _id: ObjectId,
@@ -205,12 +219,14 @@ Indexes:
 ```
 
 Indexes:
+
 - `{ user_id: 1, created_at: -1 }` - For user queries
 - `{ tags: 1 }` - For tag queries
 - `{ title: "text", description: "text" }` - Full-text search
 
 ### Task Comments Collection
-```javascript
+
+````javascript
 {
   _id: ObjectId,
   task_id: Number,     // Reference to MySQL tasks.id
@@ -225,14 +241,15 @@ Indexes:
   created_at: Date,
   updated_at: Date
 }
-```
+```text
 
 Indexes:
+
 - `{ task_id: 1, created_at: 1 }` - For task comment queries
 
 ## File System Structure
 
-```
+```text
 storage/
 ├── uploads/
 │   ├── avatars/
@@ -247,11 +264,12 @@ storage/
 │       └── {task_id}/
 └── temp/
     └── {temporary_files}
-```
+````
 
 ## Data Relationships
 
 ### User Relationships
+
 - User → Projects (created_by)
 - User → Tasks (assignee_id, created_by)
 - User → Channels (created_by, member via channel_members)
@@ -261,27 +279,33 @@ storage/
 - User → Recipes (user_id)
 
 ### Project Relationships
+
 - Project → Tasks (project_id)
 
 ### Channel Relationships
+
 - Channel → Messages (channel_id)
 - Channel → Users (via channel_members)
 
 ### Notebook Relationships
+
 - Notebook → Notes (notebook_id)
 
 ### Task Relationships
+
 - Task → Comments (task_id)
 
 ## Migration Strategy
 
 ### Initial Setup
+
 1. Create MySQL database and tables
 2. Create MongoDB database and collections
 3. Set up indexes
 4. Create file storage directories
 
 ### Future Migrations
+
 - Use TypeORM migrations for MySQL
 - Document MongoDB schema changes in this file
 - Version control file structure changes

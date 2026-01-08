@@ -4,7 +4,7 @@ Node.js + TypeScript REST API for Cord-Fam-App.
 
 ## Structure
 
-```
+```text
 backend/
 ├── src/
 │   ├── routes/       # API route definitions

@@ -1,0 +1,43 @@
+{
+  "name": "cord-fam-app",
+  "version": "1.0.0",
+  "description": "A comprehensive family collaboration platform combining communication (Slack-like), task management (JIRA-like), and note-taking (Evernote-like) capabilities.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky",
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"!**/node_modules/**\" \"!**/dist/**\" \"!**/build/**\" \"!**/.git/**\"",
+    "fix:md": "./tooling/fix-markdown.sh",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\" --ignore-path .prettierignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\" --ignore-path .prettierignore"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chamrick-at-nettracer/Cord-Fam-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chamrick-at-nettracer/Cord-Fam-App/issues"
+  },
+  "homepage": "https://github.com/chamrick-at-nettracer/Cord-Fam-App#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "markdownlint-cli2": "^0.20.0",
+    "prettier": "^3.7.4"
+  }
+}

@@ -11,12 +11,14 @@
 ## Project Setup
 
 ### 1. Clone Repository
+
 ```bash
 git clone <repository-url>
 cd Cord-Fam-App
 ```
 
 ### 2. Backend Setup
+
 ```bash
 cd backend
 npm install
@@ -26,6 +28,7 @@ npm run dev
 ```
 
 ### 3. Frontend Web Setup
+
 ```bash
 cd frontend/web
 npm install
@@ -35,30 +38,35 @@ npm run dev
 ```
 
 ### 4. Database Setup
+
 ```bash
 # MySQL
-mysql -u root -p < scripts/init-mysql.sql
+MySQL -u root -p < scripts/init-MySQL.sql
 
 # MongoDB
-mongosh < scripts/init-mongodb.js
+mongosh < scripts/init-MongoDB.js
 ```
 
 ## Development Workflow
 
 ### Branch Strategy
+
 - `main`: Production-ready code
 - `develop`: Integration branch
 - `feature/*`: Feature branches
 - `fix/*`: Bug fix branches
 
 ### Commit Messages
+
 Follow conventional commits:
+
 - `feat: add user authentication`
 - `fix: resolve message loading issue`
 - `docs: update API documentation`
 - `test: add unit tests for task service`
 
 ### Code Style
+
 - TypeScript strict mode enabled
 - ESLint + Prettier configured
 - Pre-commit hooks for linting
@@ -67,6 +75,7 @@ Follow conventional commits:
 ## Running Tests
 
 ### Unit Tests
+
 ```bash
 # Backend
 cd backend
@@ -78,11 +87,13 @@ npm test
 ```
 
 ### E2E Tests
+
 ```bash
 npm run test:e2e
 ```
 
 ### Coverage Reports
+
 ```bash
 npm run test:coverage
 ```
@@ -100,23 +111,27 @@ npm run test:coverage
 7. Write E2E tests
 
 ### API Documentation
+
 Swagger UI available at: `http://localhost:3000/api-docs`
 
 ## Database Migrations
 
 ### MySQL Migrations
+
 ```bash
 npm run migrate:up
 npm run migrate:down
 ```
 
 ### MongoDB Schema Updates
+
 Document changes in `docs/tech-docs/database/MONGODB_SCHEMAS.md`
 
 ## Environment Variables
 
 ### Backend (.env)
-```
+
+````text
 NODE_ENV=development
 PORT=3000
 JWT_SECRET=your-secret-key
@@ -124,23 +139,26 @@ MYSQL_HOST=localhost
 MYSQL_DB=cordfam
 MYSQL_USER=root
 MYSQL_PASSWORD=password
-MONGODB_URI=mongodb://localhost:27017/cordfam
+MONGODB_URI=MongoDB://localhost:27017/cordfam
 FILE_STORAGE_PATH=./storage
-```
+```env
 
 ### Frontend (.env)
-```
+
+```text
 VITE_API_URL=http://localhost:3000/api/v1
-```
+```env
 
 ## Debugging
 
 ### Backend
+
 - Use VS Code debugger
 - Check logs in `backend/logs/`
 - Enable debug mode: `DEBUG=* npm run dev`
 
 ### Frontend
+
 - React DevTools
 - Browser DevTools
 - Network tab for API calls
@@ -148,13 +166,15 @@ VITE_API_URL=http://localhost:3000/api/v1
 ## Building for Production
 
 ### Backend
+
 ```bash
 cd backend
 npm run build
 npm start
-```
+````
 
 ### Frontend Web
+
 ```bash
 cd frontend/web
 npm run build

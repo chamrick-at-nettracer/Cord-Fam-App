@@ -1,0 +1,16 @@
+{
+  "backend/**/*.{ts,js}": ["prettier --write", "cd backend && eslint --fix", "git add"],
+  "frontend/web/**/*.{ts,tsx,js,jsx}": [
+    "prettier --write",
+    "cd frontend/web && eslint --fix",
+    "git add"
+  ],
+  "tooling/**/*.js": ["prettier --write", "cd tooling && eslint --fix", "git add"],
+  "*.{json,yml,yaml}": ["prettier --write", "git add"],
+  "*.md": [
+    "node tooling/add-code-block-languages.js",
+    "markdownlint-cli2 --fix",
+    "prettier --write",
+    "git add"
+  ]
+}

@@ -11,11 +11,13 @@
 ### 1. Database Setup
 
 #### MySQL
+
 ```bash
-mysql -u root -p < scripts/init-database.sql
+MySQL -u root -p < scripts/init-database.sql
 ```
 
 #### MongoDB
+
 MongoDB will create the database automatically on first connection.
 
 ### 2. Backend Setup
@@ -55,16 +57,19 @@ Frontend will run on `http://localhost:5173`
 ## Troubleshooting
 
 ### Backend won't start
+
 - Check MySQL and MongoDB are running
 - Verify database credentials in `.env`
 - Check ports 3000 is available
 
 ### Frontend won't connect to backend
+
 - Verify backend is running on port 3000
 - Check `VITE_API_URL` in frontend `.env`
 - Check browser console for CORS errors
 
 ### Database connection errors
+
 - Verify MySQL user has permissions
 - Check MongoDB is running: `mongosh`
 - Verify connection strings in `.env`

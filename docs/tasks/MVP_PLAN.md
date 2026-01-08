@@ -1,12 +1,11 @@
 # MVP Plan - 2pm Deadline
 
-**Start Time**: 10:30am
-**Target Completion**: 2:00pm
-**Duration**: ~3.5 hours
+**Start Time**: 10:30am **Target Completion**: 2:00pm **Duration**: ~3.5 hours
 
 ## MVP Goal
 
 A working demo that shows:
+
 1. Backend API running (Fastify + TypeScript)
 2. Web frontend running (Vite + React 19 + MUI)
 3. User authentication (login/register)
@@ -24,9 +23,11 @@ A working demo that shows:
 
 ## MVP Feature: Channels & Messaging
 
-**Why**: Most visible feature, demonstrates full stack, shows family collaboration concept.
+**Why**: Most visible feature, demonstrates full stack, shows family
+collaboration concept.
 
 **What's Included**:
+
 - User registration/login
 - Create channel
 - List channels
@@ -35,6 +36,7 @@ A working demo that shows:
 - Basic UI with MUI
 
 **What's Deferred**:
+
 - Direct messages
 - File attachments
 - Real-time updates (WebSocket)
@@ -45,6 +47,7 @@ A working demo that shows:
 ## Implementation Plan
 
 ### Phase 1: Backend Setup (30 min)
+
 - [x] Initialize Fastify project
 - [x] Set up TypeScript configuration
 - [x] Configure ESLint, Prettier, Knip
@@ -52,12 +55,14 @@ A working demo that shows:
 - [x] Create basic server structure
 
 ### Phase 2: Database Setup (30 min)
+
 - [x] MySQL connection setup
 - [x] MongoDB connection setup
 - [x] Create basic schema (users, channels)
 - [x] Set up database utilities
 
 ### Phase 3: Authentication (45 min)
+
 - [x] User model/repository
 - [x] Registration endpoint
 - [x] Login endpoint (JWT)
@@ -65,6 +70,7 @@ A working demo that shows:
 - [x] Password hashing (bcrypt)
 
 ### Phase 4: Channels & Messages API (45 min)
+
 - [x] Channel model/repository
 - [x] Message model (MongoDB)
 - [x] Channel CRUD endpoints
@@ -72,6 +78,7 @@ A working demo that shows:
 - [x] Basic validation (Zod)
 
 ### Phase 5: Frontend Setup (30 min)
+
 - [x] Initialize Vite + React 19 + TypeScript
 - [x] Set up MUI
 - [x] Configure ESLint, Prettier, Knip
@@ -79,6 +86,7 @@ A working demo that shows:
 - [x] Create API client (Axios)
 
 ### Phase 6: Frontend Auth UI (30 min)
+
 - [x] Login page
 - [x] Register page
 - [x] Auth context/store
@@ -86,6 +94,7 @@ A working demo that shows:
 - [x] localStorage for token
 
 ### Phase 7: Channels UI (45 min)
+
 - [x] Channel list component
 - [x] Channel creation
 - [x] Message list component
@@ -93,6 +102,7 @@ A working demo that shows:
 - [x] Basic layout with MUI
 
 ### Phase 8: Integration & Polish (15 min)
+
 - [x] Connect frontend to backend
 - [x] Error handling
 - [x] Loading states
@@ -101,15 +111,10 @@ A working demo that shows:
 
 ## Success Criteria
 
-✅ Backend server runs on localhost:3000
-✅ Frontend runs on localhost:5173 (Vite default)
-✅ Can register a new user
-✅ Can login
-✅ Can create a channel
-✅ Can send a message
-✅ Can view messages in channel
-✅ UI looks presentable with MUI
-✅ No critical errors in console
+✅ Backend server runs on localhost:3000 ✅ Frontend runs on localhost:5173
+(Vite default) ✅ Can register a new user ✅ Can login ✅ Can create a channel
+✅ Can send a message ✅ Can view messages in channel ✅ UI looks presentable
+with MUI ✅ No critical errors in console
 
 ## Post-MVP (After 2pm)
 

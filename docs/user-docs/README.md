@@ -1,6 +1,7 @@
 # User Documentation
 
-Welcome to the Cord-Fam-App user documentation! This section contains guides and instructions for using the family collaboration app.
+Welcome to the Cord-Fam-App user documentation! This section contains guides and
+instructions for using the family collaboration app.
 
 ## Getting Started
 
@@ -10,16 +11,19 @@ Welcome to the Cord-Fam-App user documentation! This section contains guides and
 ## Features
 
 ### Communication
+
 - [Using Channels](./COMMUNICATION_CHANNELS.md) - How to use family channels
 - [Direct Messages](./DIRECT_MESSAGES.md) - Private messaging
 - [File Sharing](./FILE_SHARING.md) - Sharing files and images
 
 ### Task Management
+
 - [Creating Tasks](./TASKS_CREATING.md) - How to create and assign tasks
 - [Managing Projects](./TASKS_PROJECTS.md) - Organizing tasks into projects
 - [Task Workflows](./TASKS_WORKFLOWS.md) - Understanding task statuses
 
 ### Notes & Recipes
+
 - [Creating Notes](./NOTES_CREATING.md) - Writing and organizing notes
 - [Recipe Management](./RECIPES.md) - Adding and sharing recipes
 - [Searching Content](./SEARCH.md) - Finding notes and recipes
@@ -37,4 +41,5 @@ Welcome to the Cord-Fam-App user documentation! This section contains guides and
 
 ---
 
-**Note**: This documentation is a work in progress and will be expanded as features are developed.
+**Note**: This documentation is a work in progress and will be expanded as
+features are developed.

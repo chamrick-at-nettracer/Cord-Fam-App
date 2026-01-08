@@ -1,6 +1,8 @@
 # Cord-Fam-App
 
-A comprehensive family collaboration platform combining communication (Slack-like), task management (JIRA-like), and note-taking (Evernote-like) capabilities.
+A comprehensive family collaboration platform combining communication
+(Slack-like), task management (JIRA-like), and note-taking (Evernote-like)
+capabilities.
 
 ## Architecture
 
@@ -14,7 +16,7 @@ A comprehensive family collaboration platform combining communication (Slack-lik
 
 ## Project Structure
 
-```
+```text
 ├── backend/          # Node.js + TypeScript API server
 ├── frontend/
 │   ├── web/         # React web application

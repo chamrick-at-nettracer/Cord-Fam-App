@@ -2,7 +2,8 @@
 
 ## Overview
 
-This document provides instructions for deploying Cord-Fam-App to production environments.
+This document provides instructions for deploying Cord-Fam-App to production
+environments.
 
 ## Prerequisites
 
@@ -26,7 +27,7 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 
 # Install MySQL
-sudo apt install -y mysql-server
+sudo apt install -y MySQL-server
 
 # Install MongoDB
 # Follow MongoDB installation guide for your OS
@@ -38,9 +39,10 @@ sudo apt install -y nginx
 ### 2. Database Setup
 
 #### MySQL
+
 ```bash
 sudo mysql_secure_installation
-mysql -u root -p
+MySQL -u root -p
 ```
 
 ```sql
@@ -51,6 +53,7 @@ FLUSH PRIVILEGES;
 ```
 
 #### MongoDB
+
 ```bash
 mongosh
 ```
@@ -176,12 +179,12 @@ chmod -R 755 /var/cordfam/storage
 
 Configure S3 credentials in `.env`:
 
-```
+````text
 S3_BUCKET=cordfam-storage
 S3_REGION=us-east-1
 S3_ACCESS_KEY=...
 S3_SECRET_KEY=...
-```
+```env
 
 ## Monitoring
 
@@ -190,7 +193,7 @@ S3_SECRET_KEY=...
 ```bash
 pm2 monit
 pm2 logs cordfam-backend
-```
+````
 
 ### Log Rotation
 
@@ -201,12 +204,14 @@ Configure log rotation for application logs and PM2 logs.
 ### Database Backups
 
 #### MySQL
+
 ```bash
 # Daily backup script
 mysqldump -u cordfam -p cordfam > backup-$(date +%Y%m%d).sql
 ```
 
 #### MongoDB
+
 ```bash
 mongodump --db cordfam --out backup-$(date +%Y%m%d)
 ```

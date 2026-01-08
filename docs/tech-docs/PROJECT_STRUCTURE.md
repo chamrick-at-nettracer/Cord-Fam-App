@@ -4,7 +4,7 @@ Complete overview of the Cord-Fam-App project structure.
 
 ## Root Directory
 
-```
+````text
 Cord-Fam-App/
 ├── .cursorrules          # AI agent orchestration rules
 ├── .gitignore           # Git ignore patterns
@@ -33,11 +33,11 @@ Cord-Fam-App/
 │   └── e2e/           # End-to-end tests
 │
 └── scripts/            # Build and deployment scripts
-```
+```text
 
 ## Backend Structure
 
-```
+```TypeScript
 backend/
 ├── src/
 │   ├── routes/        # Express route definitions
@@ -90,11 +90,11 @@ backend/
 │   └── fixtures/      # Test data
 │
 └── package.json
-```
+```text
 
 ## Frontend Web Structure
 
-```
+```TypeScript
 frontend/web/
 ├── src/
 │   ├── components/    # React components
@@ -143,11 +143,11 @@ frontend/web/
 │   └── fixtures/     # Test data
 │
 └── package.json
-```
+```text
 
 ## Documentation Structure
 
-```
+```sql
 docs/
 ├── PRD.md                    # Product Requirements Document
 │
@@ -179,11 +179,12 @@ docs/
 └── tasks/                   # Task tracking
     ├── PROGRESS.md          # Progress and task history
     └── ...
-```
+```text
 
 ## Key Files
 
 ### Configuration Files
+
 - `.cursorrules` - AI agent orchestration
 - `.gitignore` - Git ignore patterns
 - `package.json` (root) - Workspace configuration (if using monorepo)
@@ -191,6 +192,7 @@ docs/
 - `frontend/web/package.json` - Web frontend dependencies
 
 ### Documentation Files
+
 - `README.md` - Project overview
 - `docs/PRD.md` - Product requirements
 - `docs/tech-docs/ARCHITECTURE.md` - System architecture
@@ -198,6 +200,7 @@ docs/
 - `docs/tasks/PROGRESS.md` - Task tracking
 
 ### Entry Points
+
 - `backend/src/index.ts` - Backend server entry
 - `frontend/web/src/main.tsx` - Web app entry
 - `frontend/web/src/App.tsx` - React root component
@@ -205,18 +208,21 @@ docs/
 ## Naming Conventions
 
 ### Files
+
 - **Components**: PascalCase (`UserProfile.tsx`)
 - **Utilities**: camelCase (`formatDate.ts`)
 - **Types**: camelCase (`userTypes.ts`)
 - **Tests**: `.test.ts` or `.spec.ts` suffix
 
 ### Directories
+
 - **Components**: lowercase (`components/`)
 - **Pages**: lowercase (`pages/`)
 - **Services**: lowercase (`services/`)
 - **Types**: lowercase (`types/`)
 
 ### Code
+
 - **Variables/Functions**: camelCase (`getUserData`)
 - **Classes/Components**: PascalCase (`UserService`)
 - **Constants**: UPPER_SNAKE_CASE (`MAX_FILE_SIZE`)
@@ -225,10 +231,13 @@ docs/
 ## Module Organization
 
 ### Backend Modules
+
 Each feature module follows this pattern:
+
 - Route → Controller → Service → Repository → Model
 
 Example: User module
+
 - `routes/users.ts` - Route definitions
 - `controllers/userController.ts` - Request handlers
 - `services/userService.ts` - Business logic
@@ -236,10 +245,13 @@ Example: User module
 - `models/User.ts` - Data model
 
 ### Frontend Modules
+
 Each feature module follows this pattern:
+
 - Page → Components → Hooks → Services → Types
 
 Example: Channels module
+
 - `pages/Channels.tsx` - Page component
 - `components/communication/ChannelList.tsx` - Components
 - `hooks/useChannels.ts` - Custom hooks
@@ -249,3 +261,4 @@ Example: Channels module
 ---
 
 **Last Updated**: 2026-01-27
+````

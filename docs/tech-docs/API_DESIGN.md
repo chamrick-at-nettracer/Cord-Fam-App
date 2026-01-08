@@ -2,7 +2,8 @@
 
 ## Overview
 
-This document outlines the API design for Cord-Fam-App. All APIs follow RESTful conventions and use JSON for request/response bodies.
+This document outlines the API design for Cord-Fam-App. All APIs follow RESTful
+conventions and use JSON for request/response bodies.
 
 ## Base URL
 
@@ -13,13 +14,14 @@ This document outlines the API design for Cord-Fam-App. All APIs follow RESTful 
 
 All protected endpoints require a JWT token in the Authorization header:
 
-```
+```http
 Authorization: Bearer <token>
 ```
 
 ## Response Format
 
 ### Success Response
+
 ```json
 {
   "success": true,
@@ -29,6 +31,7 @@ Authorization: Bearer <token>
 ```
 
 ### Error Response
+
 ```json
 {
   "success": false,
@@ -54,11 +57,12 @@ Authorization: Bearer <token>
 
 List endpoints support pagination:
 
-```
+````text
 GET /api/v1/resource?page=1&limit=20&sort=created_at&order=desc
-```
+```http
 
 Response includes pagination metadata:
+
 ```json
 {
   "success": true,
@@ -70,11 +74,12 @@ Response includes pagination metadata:
     "totalPages": 5
   }
 }
-```
+````
 
 ## API Endpoints (Planned)
 
 ### Authentication
+
 - `POST /auth/register` - Register new user
 - `POST /auth/login` - Login and get JWT token
 - `POST /auth/refresh` - Refresh JWT token
@@ -82,12 +87,14 @@ Response includes pagination metadata:
 - `GET /auth/me` - Get current user info
 
 ### Users
+
 - `GET /users` - List all users (family members)
 - `GET /users/:id` - Get user details
 - `PUT /users/:id` - Update user profile
 - `PUT /users/:id/password` - Change password
 
 ### Channels (Communication)
+
 - `GET /channels` - List channels
 - `POST /channels` - Create channel
 - `GET /channels/:id` - Get channel details
@@ -97,6 +104,7 @@ Response includes pagination metadata:
 - `DELETE /channels/:id/members/:userId` - Remove member from channel
 
 ### Messages
+
 - `GET /channels/:id/messages` - Get channel messages
 - `POST /channels/:id/messages` - Send message to channel
 - `PUT /messages/:id` - Edit message
@@ -105,12 +113,14 @@ Response includes pagination metadata:
 - `POST /messages/:id/reactions` - Add reaction
 
 ### Direct Messages
+
 - `GET /dms` - List DM conversations
 - `GET /dms/:userId` - Get DM conversation with user
 - `POST /dms/:userId/messages` - Send DM
 - `GET /dms/:userId/messages` - Get DM messages
 
 ### Projects (Task Management)
+
 - `GET /projects` - List projects
 - `POST /projects` - Create project
 - `GET /projects/:id` - Get project details
@@ -118,6 +128,7 @@ Response includes pagination metadata:
 - `DELETE /projects/:id` - Delete project
 
 ### Tasks
+
 - `GET /projects/:id/tasks` - List tasks in project
 - `POST /projects/:id/tasks` - Create task
 - `GET /tasks/:id` - Get task details
@@ -128,12 +139,14 @@ Response includes pagination metadata:
 - `GET /tasks` - List all tasks (with filters)
 
 ### Task Comments
+
 - `GET /tasks/:id/comments` - Get task comments
 - `POST /tasks/:id/comments` - Add comment to task
 - `PUT /comments/:id` - Edit comment
 - `DELETE /comments/:id` - Delete comment
 
 ### Notes
+
 - `GET /notes` - List notes
 - `POST /notes` - Create note
 - `GET /notes/:id` - Get note details
@@ -142,6 +155,7 @@ Response includes pagination metadata:
 - `GET /notes/search` - Search notes
 
 ### Notebooks
+
 - `GET /notebooks` - List notebooks
 - `POST /notebooks` - Create notebook
 - `GET /notebooks/:id` - Get notebook details
@@ -150,6 +164,7 @@ Response includes pagination metadata:
 - `GET /notebooks/:id/notes` - Get notes in notebook
 
 ### Recipes
+
 - `GET /recipes` - List recipes
 - `POST /recipes` - Create recipe
 - `GET /recipes/:id` - Get recipe details
@@ -158,11 +173,13 @@ Response includes pagination metadata:
 - `GET /recipes/search` - Search recipes
 
 ### Tags
+
 - `GET /tags` - List all tags
 - `GET /tags/:name/notes` - Get notes with tag
 - `GET /tags/:name/recipes` - Get recipes with tag
 
 ### Files
+
 - `POST /files/upload` - Upload file
 - `GET /files/:id` - Download file
 - `DELETE /files/:id` - Delete file
@@ -170,13 +187,15 @@ Response includes pagination metadata:
 ## Real-time Updates
 
 WebSocket or Server-Sent Events for:
+
 - New messages in channels/DMs
 - Task updates
 - User presence
 
 ## API Versioning
 
-APIs are versioned in the URL path (`/api/v1/`). Breaking changes will increment the version (`/api/v2/`).
+APIs are versioned in the URL path (`/api/v1/`). Breaking changes will increment
+the version (`/api/v2/`).
 
 ## Rate Limiting
 

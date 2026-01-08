@@ -1,0 +1,15 @@
+# Run lint-staged (handles formatting, linting, and markdown fixes)
+npx lint-staged
+
+# Run tests if they exist (non-blocking for now, can be made blocking later)
+if [ -f "backend/package.json" ]; then
+  echo "🧪 Running backend tests..."
+  cd backend && npm test --if-present || true && cd ..
+fi
+
+if [ -f "frontend/web/package.json" ]; then
+  echo "🧪 Running frontend tests..."
+  cd frontend/web && npm test --if-present || true && cd ../..
+fi
+
+echo "✅ Pre-commit checks completed!"

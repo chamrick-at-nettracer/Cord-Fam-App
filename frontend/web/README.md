@@ -4,7 +4,7 @@ React 19+ web application for Cord-Fam-App.
 
 ## Structure
 
-```
+```text
 frontend/web/
 ├── src/
 │   ├── components/   # React components
