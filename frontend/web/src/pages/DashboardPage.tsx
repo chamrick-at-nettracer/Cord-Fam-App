@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/AuthContext';
 import { channelService } from '../services/channelService';
 import { messageService } from '../services/messageService';
@@ -20,13 +21,15 @@ import {
   Paper,
   CircularProgress,
   Alert,
+  IconButton,
 } from '@mui/material';
-import { Add as AddIcon } from '@mui/icons-material';
+import { Add as AddIcon, Settings as SettingsIcon } from '@mui/icons-material';
 
 const DRAWER_WIDTH = 300;
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [channels, setChannels] = useState<Channel[]>([]);
   const [selectedChannel, setSelectedChannel] = useState<Channel | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -132,8 +135,13 @@ export default function DashboardPage() {
             Cord-Fam-App
           </Typography>
           <Typography variant="body2" sx={{ mr: 2 }}>
-            {user?.username}
+            {user?.first_name && user?.last_name
+              ? `${user.first_name} ${user.last_name}`
+              : user?.first_name || user?.username}
           </Typography>
+          <IconButton color="inherit" onClick={() => navigate('/settings')} sx={{ mr: 1 }}>
+            <SettingsIcon />
+          </IconButton>
           <Button color="inherit" onClick={logout}>
             Logout
           </Button>

@@ -48,4 +48,18 @@ export const authService = {
   getToken(): string | null {
     return localStorage.getItem('token');
   },
+
+  async updateProfile(updates: {
+    username?: string;
+    first_name?: string;
+    last_name?: string;
+    preferred_color?: string | null;
+  }): Promise<User> {
+    const response = await api.put<ApiResponse<{ user: User }>>('/auth/profile', updates);
+    if (response.data.success && response.data.data) {
+      localStorage.setItem('user', JSON.stringify(response.data.data.user));
+      return response.data.data.user;
+    }
+    throw new Error(response.data.error?.message || 'Failed to update profile');
+  },
 };

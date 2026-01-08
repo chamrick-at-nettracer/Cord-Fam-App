@@ -62,6 +62,27 @@ export class AuthService {
     });
   }
 
+  async updateProfile(
+    userId: number,
+    updates: {
+      username?: string;
+      first_name?: string;
+      last_name?: string;
+      preferred_color?: string;
+    }
+  ): Promise<UserResponse> {
+    // Check username uniqueness if updating username
+    if (updates.username) {
+      const existing = await this.userRepository.findByUsername(updates.username);
+      if (existing && existing.id !== userId) {
+        throw new Error('Username already taken');
+      }
+    }
+
+    const user = await this.userRepository.update(userId, updates);
+    return this.toUserResponse(user);
+  }
+
   private toUserResponse(user: {
     id: number;
     email: string;

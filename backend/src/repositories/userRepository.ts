@@ -45,4 +45,52 @@ export class UserRepository {
     }
     return user;
   }
+
+  async update(
+    id: number,
+    updates: {
+      username?: string;
+      first_name?: string;
+      last_name?: string;
+      preferred_color?: string;
+    }
+  ): Promise<User> {
+    const pool = mysqlConnection.getPool();
+    const fields: string[] = [];
+    const values: unknown[] = [];
+
+    if (updates.username !== undefined) {
+      fields.push('username = ?');
+      values.push(updates.username);
+    }
+    if (updates.first_name !== undefined) {
+      fields.push('first_name = ?');
+      values.push(updates.first_name || null);
+    }
+    if (updates.last_name !== undefined) {
+      fields.push('last_name = ?');
+      values.push(updates.last_name || null);
+    }
+    if (updates.preferred_color !== undefined) {
+      fields.push('preferred_color = ?');
+      values.push(updates.preferred_color || null);
+    }
+
+    if (fields.length === 0) {
+      const user = await this.findById(id);
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return user;
+    }
+
+    values.push(id);
+    await pool.execute(`UPDATE users SET ${fields.join(', ')} WHERE id = ?`, values);
+
+    const user = await this.findById(id);
+    if (!user) {
+      throw new Error('Failed to update user');
+    }
+    return user;
+  }
 }

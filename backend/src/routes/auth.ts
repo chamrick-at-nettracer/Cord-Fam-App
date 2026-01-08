@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { z } from 'zod';
+import { authenticate, AuthenticatedRequest } from '../middleware/auth';
 import { AuthService } from '../services/authService';
 
 const registerSchema = z.object({
@@ -77,4 +78,50 @@ export async function authRoutes(fastify: FastifyInstance) {
       });
     }
   });
+
+  const updateProfileSchema = z.object({
+    username: z.string().min(3).max(50).optional(),
+    first_name: z.string().max(100).optional(),
+    last_name: z.string().max(100).optional(),
+    preferred_color: z
+      .string()
+      .regex(/^#[0-9A-Fa-f]{6}$/)
+      .optional()
+      .nullable(),
+  });
+
+  fastify.put(
+    '/profile',
+    { preHandler: authenticate },
+    async (request: AuthenticatedRequest, reply) => {
+      try {
+        const userId = request.userId!;
+        const body = updateProfileSchema.parse(request.body);
+        const user = await authService.updateProfile(userId, body);
+        reply.code(200).send({
+          success: true,
+          data: { user },
+        });
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          reply.code(400).send({
+            success: false,
+            error: {
+              code: 'VALIDATION_ERROR',
+              message: 'Invalid input',
+              details: error.errors,
+            },
+          });
+          return;
+        }
+        reply.code(400).send({
+          success: false,
+          error: {
+            code: 'UPDATE_FAILED',
+            message: error instanceof Error ? error.message : 'Failed to update profile',
+          },
+        });
+      }
+    }
+  );
 }
