@@ -30,8 +30,8 @@ Before you begin, ensure you have the following installed:
 ```bash
 node --version    # Should be v20.x.x or higher
 npm --version     # Should be 10.x.x or higher
-MySQL --version   # Should be 8.0.x or higher
-mongod --version  # Should be 7.0.x or higher
+MySQL --version   # Should be 8.0.x or higher (MySQL)
+mongosh --version # Should be 7.0.x or higher (MongoDB)
 git --version
 ```
 

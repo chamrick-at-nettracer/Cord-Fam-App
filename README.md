@@ -34,8 +34,10 @@ capabilities.
 
 **New to the project?** Start here:
 
-👉 **[Getting Started Guide](docs/GETTING_STARTED.md)** - Complete setup
-instructions for running the MVP locally
+👉 **[First Day Guide](docs/JUNIOR_DEV_START_HERE.md)** - Step-by-step
+walkthrough for junior developers 👉
+**[Getting Started Guide](docs/GETTING_STARTED.md)** - Complete setup
+instructions
 
 ### Quick Commands
 
