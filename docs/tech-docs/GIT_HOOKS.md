@@ -16,7 +16,16 @@ When you commit, the following checks run automatically **in order**:
 2. **Markdownlint** - Lints and auto-fixes Markdown files
 3. **Prettier Formatting** - Auto-formats all staged files
 4. **ESLint Linting** - Lints and auto-fixes TypeScript/JavaScript files
-5. **Unit Tests** - Runs tests if configured (non-blocking for now)
+5. **Unit Tests** - Runs backend and frontend unit tests with coverage checks
+
+**Note:** E2E tests are **NOT** run in pre-commit hooks because they:
+
+- Take too long (minutes vs seconds for unit tests)
+- Require backend and frontend servers to be running
+- Are better suited for CI/CD pipelines or manual runs before pushing
+
+Run E2E tests manually with `npm run test:e2e` in `frontend/web` before pushing
+or in your CI/CD pipeline.
 
 All fixes are automatically applied and re-staged, so your commit will include
 the fixes!

@@ -85,6 +85,22 @@ Before running E2E tests, ensure:
 
 ## Running E2E Tests
 
+### When to Run E2E Tests
+
+**E2E tests are NOT run automatically in pre-commit hooks** because they:
+
+- Take a long time to run (minutes vs seconds for unit tests)
+- Require the backend and frontend servers to be running
+- Are better suited for CI/CD pipelines or manual runs before pushing
+
+**Run E2E tests:**
+
+- ✅ Before pushing to a branch
+- ✅ In CI/CD pipelines (GitHub Actions, etc.)
+- ✅ When testing complete user workflows
+- ✅ Before releases or deployments
+- ❌ NOT in pre-commit hooks (too slow)
+
 ### Basic Commands
 
 ```bash

@@ -16,12 +16,21 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/tests/setup.ts',
+    // Exclude E2E tests (Playwright) from Vitest unit tests
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/e2e/**',
+      '**/*.e2e.spec.ts',
+      '**/*.e2e.test.ts',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       exclude: [
         'node_modules/',
         'src/tests/',
+        'e2e/',
         '**/*.d.ts',
         '**/*.config.*',
         '**/main.tsx',

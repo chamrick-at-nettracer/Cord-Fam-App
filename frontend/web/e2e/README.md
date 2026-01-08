@@ -2,6 +2,8 @@
 
 This directory contains end-to-end tests for the Cord-Fam-App web frontend.
 
+**⚠️ Important:** E2E tests are NOT run in pre-commit hooks (they're too slow). Run them manually before pushing or in CI/CD.
+
 ## Quick Start
 
 ```bash

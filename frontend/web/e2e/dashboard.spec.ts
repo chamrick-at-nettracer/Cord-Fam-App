@@ -11,27 +11,30 @@ import { test, expect } from '@playwright/test';
  */
 
 test.describe('Dashboard', () => {
-  // Test user credentials (should match a user in your test database)
+  // Generate unique test user for each test run
+  const timestamp = Date.now();
   const testUser = {
-    email: 'cord@example.com', // Update with your test user email
-    password: 'password123', // Update with your test user password
+    email: `test${timestamp}@example.com`,
+    username: `testuser${timestamp}`,
+    password: 'testpass123',
   };
 
   test.beforeEach(async ({ page }) => {
-    // Login before each test
-    await page.goto('/login');
+    // Register a new user and login before each test
+    await page.goto('/register');
 
-    // Skip login if already logged in (for faster test runs)
-    const currentUrl = page.url();
-    if (!currentUrl.includes('/login')) {
-      return;
-    }
-
+    // Fill registration form
     await page.getByLabel(/email/i).fill(testUser.email);
+    await page.getByLabel(/username/i).fill(testUser.username);
     await page.getByLabel(/password/i).fill(testUser.password);
-    await page.getByRole('button', { name: /login/i }).click();
 
-    // Wait for dashboard to load
+    // Submit and wait for redirect to dashboard
+    await Promise.all([
+      page.waitForURL('/', { timeout: 10000 }),
+      page.getByRole('button', { name: /register/i }).click(),
+    ]);
+
+    // Verify we're on the dashboard
     await expect(page).toHaveURL('/');
     await expect(page.getByText(/cord-fam-app/i)).toBeVisible();
   });

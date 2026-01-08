@@ -54,10 +54,13 @@ test.describe('Authentication', () => {
     await page.getByLabel(/first name/i).fill(testUser.first_name);
     await page.getByLabel(/last name/i).fill(testUser.last_name);
 
-    // Submit the form
-    await page.getByRole('button', { name: /register/i }).click();
+    // Submit the form and wait for navigation
+    await Promise.all([
+      page.waitForURL('/', { timeout: 10000 }),
+      page.getByRole('button', { name: /register/i }).click(),
+    ]);
 
-    // Should redirect to dashboard after successful registration
+    // Verify we're on the dashboard
     await expect(page).toHaveURL('/');
     await expect(page.getByText(/cord-fam-app/i)).toBeVisible();
   });
@@ -68,23 +71,36 @@ test.describe('Authentication', () => {
     await page.getByLabel(/email/i).fill(testUser.email);
     await page.getByLabel(/username/i).fill(testUser.username);
     await page.getByLabel(/password/i).fill(testUser.password);
-    await page.getByRole('button', { name: /register/i }).click();
 
-    // Wait for redirect to dashboard
+    // Submit and wait for redirect
+    await Promise.all([
+      page.waitForURL('/', { timeout: 10000 }),
+      page.getByRole('button', { name: /register/i }).click(),
+    ]);
+
+    // Verify we're on dashboard
     await expect(page).toHaveURL('/');
 
     // Logout
-    await page.getByRole('button', { name: /logout/i }).click();
+    await Promise.all([
+      page.waitForURL(/.*\/login/, { timeout: 5000 }),
+      page.getByRole('button', { name: /logout/i }).click(),
+    ]);
 
-    // Should redirect to login
+    // Verify we're on login page
     await expect(page).toHaveURL(/.*\/login/);
 
     // Now test login
     await page.getByLabel(/email/i).fill(testUser.email);
     await page.getByLabel(/password/i).fill(testUser.password);
-    await page.getByRole('button', { name: /login/i }).click();
 
-    // Should redirect to dashboard
+    // Submit and wait for redirect
+    await Promise.all([
+      page.waitForURL('/', { timeout: 10000 }),
+      page.getByRole('button', { name: /login/i }).click(),
+    ]);
+
+    // Verify we're on dashboard
     await expect(page).toHaveURL('/');
     await expect(page.getByText(/cord-fam-app/i)).toBeVisible();
   });
@@ -100,17 +116,25 @@ test.describe('Authentication', () => {
   });
 
   test('should logout successfully', async ({ page }) => {
-    // First login
+    // First register/login
     await page.goto('/register');
     await page.getByLabel(/email/i).fill(testUser.email);
     await page.getByLabel(/username/i).fill(testUser.username);
     await page.getByLabel(/password/i).fill(testUser.password);
-    await page.getByRole('button', { name: /register/i }).click();
+
+    // Submit and wait for redirect
+    await Promise.all([
+      page.waitForURL('/', { timeout: 10000 }),
+      page.getByRole('button', { name: /register/i }).click(),
+    ]);
 
     await expect(page).toHaveURL('/');
 
-    // Click logout
-    await page.getByRole('button', { name: /logout/i }).click();
+    // Click logout and wait for redirect
+    await Promise.all([
+      page.waitForURL(/.*\/login/, { timeout: 5000 }),
+      page.getByRole('button', { name: /logout/i }).click(),
+    ]);
 
     // Should redirect to login page
     await expect(page).toHaveURL(/.*\/login/);
