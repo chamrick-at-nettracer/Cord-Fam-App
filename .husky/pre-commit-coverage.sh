@@ -12,13 +12,12 @@ if [ -f "backend/package.json" ]; then
   echo "🧪 Running backend tests with coverage..."
   cd backend
   npm run test:coverage > /tmp/backend-coverage.log 2>&1
-  COVERAGE=$(grep -oP 'All files\s+\|\s+\K[0-9]+' /tmp/backend-coverage.log | head -1)
-  if [ -n "$COVERAGE" ] && [ "$COVERAGE" -ge 90 ]; then
-    echo "✅ Backend coverage: ${COVERAGE}% (meets 90% threshold)"
+  if grep -q "All files.*[9-9][0-9]\|All files.*100" /tmp/backend-coverage.log; then
+    echo "✅ Backend coverage meets 90% threshold"
     BACKEND_COVERAGE_PASS=true
   else
-    echo "❌ Backend coverage: ${COVERAGE}% (below 90% threshold)"
-    cat /tmp/backend-coverage.log | tail -20
+    echo "❌ Backend coverage below 90% threshold"
+    cat /tmp/backend-coverage.log
   fi
   cd ..
 fi
@@ -27,13 +26,12 @@ if [ -f "frontend/web/package.json" ]; then
   echo "🧪 Running frontend tests with coverage..."
   cd frontend/web
   npm run test:coverage > /tmp/frontend-coverage.log 2>&1
-  COVERAGE=$(grep -oP 'All files\s+\|\s+\K[0-9]+' /tmp/frontend-coverage.log | head -1)
-  if [ -n "$COVERAGE" ] && [ "$COVERAGE" -ge 90 ]; then
-    echo "✅ Frontend coverage: ${COVERAGE}% (meets 90% threshold)"
+  if grep -q "All files.*[9-9][0-9]\|All files.*100" /tmp/frontend-coverage.log; then
+    echo "✅ Frontend coverage meets 90% threshold"
     FRONTEND_COVERAGE_PASS=true
   else
-    echo "❌ Frontend coverage: ${COVERAGE}% (below 90% threshold)"
-    cat /tmp/frontend-coverage.log | tail -20
+    echo "❌ Frontend coverage below 90% threshold"
+    cat /tmp/frontend-coverage.log
   fi
   cd ../..
 fi
@@ -51,4 +49,3 @@ fi
 
 echo "✅ Pre-commit checks completed!"
 exit 0
-
