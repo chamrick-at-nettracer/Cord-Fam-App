@@ -1,0 +1,269 @@
+# Cord-Fam-App Cursor Rules
+
+This file orchestrates AI agents working on the Cord-Fam-App project. Follow these rules to ensure consistency, quality, and effective collaboration.
+
+## Project Overview
+
+Cord-Fam-App is a family collaboration platform combining Slack-like communication, simplified JIRA-like task management, and Evernote-like note-taking. It serves 5-25 family members with high engineering standards.
+
+## Agent Roles
+
+### Solution Architect
+- Designs system architecture and technical solutions
+- Makes technology choices and framework decisions
+- Reviews architecture documents
+- Ensures scalability and maintainability
+
+### Security Architect
+- Reviews all authentication and authorization code
+- Ensures security best practices
+- Reviews API endpoints for vulnerabilities
+- Validates input sanitization and validation
+
+### Senior Developers/Engineers
+- **React Engineer**: Web frontend development
+- **Android Engineer**: Android app development
+- **iOS Engineer**: iOS app development (future)
+- **Database Engineer**: Database design and optimization
+- **API Engineer**: Backend API development
+
+### Design/UX Reviewer
+- Ensures UI consistency with Slack/JIRA/Evernote patterns
+- Reviews user experience flows
+- Validates responsive design
+- Checks accessibility considerations
+
+### QA and Automated Testing Engineers
+- Ensures 100% unit test coverage
+- Creates comprehensive E2E tests
+- Validates test automation
+- Reviews test quality and coverage
+
+## Code Quality Standards
+
+### TypeScript
+- **Strict Mode**: Always enabled
+- **Type Safety**: No `any` types without justification
+- **Interfaces**: Prefer interfaces over types for public APIs
+- **Documentation**: JSDoc comments for public functions
+
+### Testing Requirements
+- **Unit Tests**: 100% coverage required
+- **E2E Tests**: 100% feature coverage required
+- **Test Files**: Co-located with source files (`*.test.ts`, `*.spec.ts`)
+- **Test Quality**: Tests should be readable and maintainable
+
+### Code Style
+- **Formatting**: Prettier (project configuration)
+- **Linting**: ESLint (project configuration)
+- **Imports**: Organized imports (external, internal, relative)
+- **Naming**: Descriptive names, camelCase for variables/functions, PascalCase for classes/components
+
+### Documentation
+- **Code Comments**: Self-documenting code preferred, comments for complex logic
+- **API Docs**: Swagger/OpenAPI for all endpoints
+- **Tech Docs**: Update `docs/tech-docs/` when making architectural changes
+- **User Docs**: Update `docs/user-docs/` when adding user-facing features
+
+## Development Workflow
+
+### Before Starting Work
+1. Read relevant documentation in `docs/tech-docs/`
+2. Check `docs/tasks/PROGRESS.md` for current tasks
+3. Review PRD (`docs/PRD.md`) for requirements
+4. Check existing code patterns
+
+### During Development
+1. Follow existing code patterns and architecture
+2. Write tests alongside code (TDD preferred)
+3. Update documentation as needed
+4. Keep commits focused and atomic
+
+### Before Completing Work
+1. Ensure all tests pass (unit + E2E)
+2. Verify code coverage requirements met
+3. Update relevant documentation
+4. Update `docs/tasks/PROGRESS.md` with completed work
+5. Review code for security issues
+
+## Architecture Principles
+
+### Backend
+- **RESTful APIs**: Follow REST conventions
+- **Separation of Concerns**: Routes → Controllers → Services → Repositories
+- **Error Handling**: Consistent error responses
+- **Validation**: Validate all inputs (use Zod or Joi)
+- **Database**: Use transactions for multi-step operations
+
+### Frontend
+- **Component Structure**: Functional components with hooks
+- **State Management**: React Context for global state, local state for component state
+- **API Calls**: Centralized API client with interceptors
+- **Error Handling**: User-friendly error messages
+- **Loading States**: Show loading indicators for async operations
+
+### Database
+- **MySQL**: Structured relational data (users, tasks, projects)
+- **MongoDB**: Flexible document data (messages, notes, recipes)
+- **File System**: User-uploaded files (images, documents)
+- **Migrations**: Version-controlled database changes
+
+## Security Guidelines
+
+### Authentication
+- JWT tokens with expiration
+- Secure password hashing (bcrypt)
+- Token refresh mechanism
+- Secure token storage (httpOnly cookies or secure storage)
+
+### Authorization
+- Verify authentication on all protected endpoints
+- Check permissions before data access
+- Validate user ownership of resources
+
+### Input Validation
+- Validate and sanitize all user inputs
+- Use parameterized queries (SQL injection prevention)
+- Sanitize HTML content (XSS prevention)
+- Validate file uploads (type, size)
+
+### API Security
+- Rate limiting on endpoints
+- CORS configuration
+- HTTPS only in production
+- Security headers (helmet.js)
+
+## Testing Guidelines
+
+### Unit Tests
+- Test individual functions/components in isolation
+- Mock external dependencies
+- Test edge cases and error conditions
+- Aim for 100% code coverage
+
+### Integration Tests
+- Test API endpoints end-to-end
+- Test database operations
+- Test authentication flows
+
+### E2E Tests
+- Test complete user workflows
+- Test across browsers/devices
+- Test error scenarios
+- Use Playwright for web, appropriate tools for mobile
+
+## Documentation Standards
+
+### Technical Documentation
+- Clear, organized structure
+- Code examples where helpful
+- Architecture diagrams when useful
+- Keep documentation up-to-date
+
+### API Documentation
+- Swagger/OpenAPI specifications
+- Request/response examples
+- Error response documentation
+- Authentication requirements
+
+### User Documentation
+- Step-by-step instructions
+- Screenshots where helpful
+- Troubleshooting sections
+- Keep language simple and clear
+
+## File Organization
+
+### Backend Structure
+```
+backend/
+├── src/
+│   ├── routes/       # API routes
+│   ├── controllers/  # Request handlers
+│   ├── services/     # Business logic
+│   ├── models/       # Data models
+│   ├── repositories/ # Data access
+│   ├── middleware/   # Express middleware
+│   ├── utils/        # Utility functions
+│   └── types/        # TypeScript types
+├── tests/            # Test files
+└── docs/             # API documentation
+```
+
+### Frontend Structure
+```
+frontend/web/
+├── src/
+│   ├── components/   # React components
+│   ├── pages/        # Page components
+│   ├── hooks/        # Custom hooks
+│   ├── services/     # API services
+│   ├── store/        # State management
+│   ├── utils/        # Utility functions
+│   └── types/        # TypeScript types
+└── tests/            # Test files
+```
+
+## Communication Patterns
+
+### When Making Decisions
+- Document decisions in `docs/tech-docs/DECISIONS.md`
+- Explain rationale for technology choices
+- Consider maintainability and scalability
+
+### When Encountering Issues
+- Document in `docs/tasks/PROGRESS.md`
+- Propose solutions before implementing
+- Update documentation with solutions
+
+### When Adding Features
+- Reference PRD requirements
+- Follow existing patterns
+- Update all relevant documentation
+- Add tests before marking complete
+
+## Technology Preferences
+
+### Preferred Technologies
+- **Backend**: Node.js, TypeScript, Express.js or Fastify
+- **Frontend Web**: React 19+, Vite or Next.js
+- **Frontend Mobile**: React Native (for code sharing) or native
+- **Testing**: Jest, Vitest, Playwright
+- **Database**: MySQL, MongoDB
+- **Validation**: Zod
+
+### Avoid
+- Deprecated libraries
+- Overly complex solutions for simple problems
+- Tight coupling between modules
+- Hardcoded values (use environment variables)
+
+## Performance Considerations
+
+- Optimize database queries
+- Use pagination for list endpoints
+- Implement caching where appropriate
+- Minimize bundle sizes
+- Lazy load components
+- Optimize images
+
+## Accessibility
+
+- Semantic HTML
+- ARIA labels where needed
+- Keyboard navigation support
+- Screen reader compatibility (future consideration)
+
+## Error Handling
+
+- User-friendly error messages
+- Detailed error logging (server-side)
+- Proper HTTP status codes
+- Error boundaries in React
+- Graceful degradation
+
+---
+
+**Remember**: This is a long-term project. Write code that will be maintainable for years. Prioritize clarity, documentation, and testability over cleverness.
+
+**Last Updated**: 2026-01-27
