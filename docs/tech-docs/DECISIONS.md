@@ -246,4 +246,35 @@ MUI free tier doesn't cover needs.
 
 ---
 
+## 2026-01-27: Channel Membership Architecture
+
+### Decision: Auto-Join for Public Channels
+
+**Decision**: Automatically add users as members of public channels when they
+first access the channel (view messages or send a message).
+
+**Rationale**:
+
+- Provides Slack-like user experience where public channels are accessible to
+  all users
+- Reduces friction - users don't need to explicitly "join" public channels
+- Public channels are meant to be open to all family members
+- Private channels still require explicit membership, maintaining privacy
+  controls
+
+**Implementation**:
+
+- `ChannelService.ensureMember()` checks if user is a member
+- If not a member and channel is public, automatically adds user as member
+- If not a member and channel is private, throws error (403 Forbidden)
+- Applied in message routes before allowing message access/creation
+
+**Alternatives Considered**:
+
+- Require explicit join for all channels - rejected for UX friction
+- Make all channels public without membership table - rejected for private
+  channel support
+
+---
+
 **Last Updated**: 2026-01-27

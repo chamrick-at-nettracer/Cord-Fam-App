@@ -55,12 +55,17 @@ curl http://localhost:3000/health
 
 ### ✅ Multi-User Test
 
-1. Open incognito/private browser window
+1. Open incognito/private browser window (or different browser)
 2. Navigate to `http://localhost:5173`
 3. Register second user: `test2@example.com` / `testuser2`
-4. Join same channel
-5. Send messages from both users
-6. **Expected**: Messages appear for both users (refresh to see updates)
+4. **Expected**: Second user sees existing channels (e.g., "general" created by
+   first user)
+5. Click on the same channel that first user created
+6. **Expected**: Second user is automatically added as member (auto-join for
+   public channels)
+7. Second user should see messages from first user
+8. Send messages from both users
+9. **Expected**: Messages appear for both users (refresh to see updates)
 
 ## Feature Testing
 

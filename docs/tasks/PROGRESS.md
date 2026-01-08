@@ -37,6 +37,24 @@ Cord-Fam-App project.
 
 **MVP Status**: ✅ **COMPLETE** - Working demo ready!
 
+### 2026-01-27: MVP Bug Fixes
+
+- [x] Fixed channel membership issue: Users can now see and post messages in
+      public channels
+  - **Issue**: Second user (Elizabeth) could see channel in list but got 403
+    when trying to view/send messages
+  - **Root Cause**: Channel membership was only created for channel creator, but
+    API required membership to access messages
+  - **Solution**: Implemented auto-join mechanism for public channels - users
+    are automatically added as members when they try to access a public channel
+  - **Files Changed**:
+    - `backend/src/repositories/channelRepository.ts` - Added `addMember()`
+      method
+    - `backend/src/services/channelService.ts` - Added `ensureMember()` method
+      with auto-join logic
+    - `backend/src/routes/messages.ts` - Added `ensureMember()` calls before
+      message access/creation
+
 ---
 
 ## In Progress
@@ -180,4 +198,4 @@ No blocked items currently.
 
 ---
 
-**Last Updated**: 2026-01-27
+**Last Updated**: 2026-01-27 (after MVP bug fixes)

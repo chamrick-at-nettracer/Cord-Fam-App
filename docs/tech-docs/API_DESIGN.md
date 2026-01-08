@@ -103,10 +103,21 @@ Response includes pagination metadata:
 - `POST /channels/:id/members` - Add member to channel
 - `DELETE /channels/:id/members/:userId` - Remove member from channel
 
+**Channel Membership Behavior**:
+
+- When a channel is created, the creator is automatically added as a member
+- **Public channels**: Users are automatically added as members when they first
+  try to access the channel (view messages or send a message). This provides a
+  Slack-like experience where public channels are accessible to all users.
+- **Private channels**: Users must be explicitly added as members. Attempting to
+  access a private channel without membership returns a 403 Forbidden error.
+
 ### Messages
 
-- `GET /channels/:id/messages` - Get channel messages
-- `POST /channels/:id/messages` - Send message to channel
+- `GET /channels/:id/messages` - Get channel messages (auto-joins user to public
+  channel if not already a member)
+- `POST /channels/:id/messages` - Send message to channel (auto-joins user to
+  public channel if not already a member)
 - `PUT /messages/:id` - Edit message
 - `DELETE /messages/:id` - Delete message
 - `GET /messages/:id/reactions` - Get message reactions
