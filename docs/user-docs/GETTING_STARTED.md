@@ -10,6 +10,9 @@ Cord-Fam-App is a family collaboration platform that combines:
 - **Communication**: Slack-like messaging and channels
 - **Task Management**: Simplified JIRA-like task tracking
 - **Note-Taking**: Evernote-like note organization
+- **Calendar & Lists**: Cozi Calendar-like scheduling, to-do lists, and shopping
+  lists
+- **Location Sharing**: Life360-like real-time location sharing (mobile apps)
 
 ## Creating Your Account
 

@@ -189,6 +189,19 @@ Cord-Fam-App project.
 - [ ] Add search functionality
 - [ ] Implement tagging system
 
+### Phase 1: Calendar & Lists Module
+
+- [ ] Design calendar/events data model
+- [ ] Design lists data model (to-do lists, shopping lists)
+- [ ] Implement calendar/events APIs
+- [ ] Implement lists APIs
+- [ ] Create calendar UI components (day/week/month views)
+- [ ] Create event creation/editing UI
+- [ ] Create lists UI components
+- [ ] Implement recurring events
+- [ ] Add event notifications/reminders
+- [ ] Implement list sharing functionality
+
 ### Phase 2: Android App
 
 - [ ] Choose Android framework (React Native, Kotlin, etc.)
@@ -197,6 +210,11 @@ Cord-Fam-App project.
 - [ ] Port communication module to Android
 - [ ] Port task management module to Android
 - [ ] Port notes module to Android
+- [ ] Port calendar & lists module to Android
+- [ ] Implement location sharing (GPS integration)
+- [ ] Implement background location updates
+- [ ] Create location sharing UI (map view, location list)
+- [ ] Implement geofencing and location alerts
 - [ ] Implement push notifications
 - [ ] Add offline support
 - [ ] Test on multiple Android devices
@@ -224,6 +242,8 @@ Cord-Fam-App project.
 - [ ] Choose iOS framework
 - [ ] Set up iOS project structure
 - [ ] Port all modules to iOS
+- [ ] Implement location sharing (iOS GPS integration)
+- [ ] Implement background location updates (iOS)
 - [ ] App Store preparation
 
 ---
@@ -264,5 +284,4 @@ No blocked items currently.
 
 ---
 
-**Last Updated**: 2026-01-27 (after testing & documentation infrastructure
-setup)
+**Last Updated**: 2026-01-27 (updated with calendar & location sharing features)

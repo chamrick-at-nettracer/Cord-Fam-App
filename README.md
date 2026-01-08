@@ -1,7 +1,8 @@
 # Cord-Fam-App
 
 A comprehensive family collaboration platform combining communication
-(Slack-like), task management (JIRA-like), and note-taking (Evernote-like)
+(Slack-like), task management (JIRA-like), note-taking (Evernote-like), calendar
+and lists (Cozi Calendar-like), and location sharing (Life360-like)
 capabilities.
 
 ## Architecture

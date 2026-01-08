@@ -2,22 +2,23 @@
 
 ## Cord-Fam-App: Free Family App With All The Things
 
-**Version**: 1.0 **Last Updated**: 2026-01-27 **Status**: Initial Planning
+**Version**: 1.1 **Last Updated**: 2026-01-27 **Status**: Initial Planning
 
 ---
 
 ## 1. Executive Summary
 
 Cord-Fam-App is a unified family collaboration platform that combines the core
-features of Slack (communication), simplified JIRA (task management), and
-Evernote (notes/recipes) into a single, free-to-use application for family
-members.
+features of Slack (communication), simplified JIRA (task management), Evernote
+(notes/recipes), Cozi Calendar (calendar and lists), and Life360 (location
+sharing) into a single, free-to-use application for family members.
 
 ### 1.1 Problem Statement
 
-The family currently uses multiple paid services (Slack, JIRA, Evernote) that
-are becoming cost-prohibitive. We need a unified, self-hosted solution that
-provides equivalent functionality without subscription costs.
+The family currently uses multiple paid services (Slack, JIRA, Evernote, Cozi
+Calendar, Life360) that are becoming cost-prohibitive. We need a unified,
+self-hosted solution that provides equivalent functionality without subscription
+costs.
 
 ### 1.2 Solution Overview
 
@@ -27,6 +28,8 @@ provides:
 - Real-time family communication (Slack-like channels and messaging)
 - Task and project management (simplified JIRA-like workflows)
 - Note-taking and recipe management (Evernote-like organization)
+- Calendar and list management (Cozi Calendar-like scheduling and lists)
+- Real-time location sharing (Life360-like family location tracking)
 
 ---
 
@@ -80,7 +83,32 @@ provides:
 - **Attachments**: Add images to notes and recipes
 - **Sharing**: Share notes with family members
 
-### 3.4 Authentication & Security
+### 3.4 Calendar & Lists Module (Cozi Calendar-like)
+
+- **Events**: Create and manage calendar events
+- **Multi-user Calendar**: Shared family calendar with all members' events
+- **Event Details**: Title, description, date/time, location, attendees
+- **Recurring Events**: Support for repeating events (daily, weekly, monthly)
+- **To-Do Lists**: Personal and shared to-do lists
+- **Shopping Lists**: Shared shopping lists with check-off functionality
+- **List Sharing**: Share lists with specific family members or entire family
+- **Notifications**: Reminders for upcoming events and list items
+- **Calendar Views**: Day, week, and month views
+
+### 3.5 Location Sharing Module (Life360-like)
+
+- **Real-time Location**: Share current location with family members
+- **Location History**: View location history for family members
+- **Location Updates**: Automatic location updates (configurable frequency)
+- **Geofencing**: Set up location-based alerts (e.g., "arrived at college",
+  "left home")
+- **Privacy Controls**: Granular control over who can see your location
+- **Location Status**: See when family members are "on the way home", "at
+  college", "visiting", etc.
+- **Map View**: Visual map showing all family members' locations
+- **Mobile-only**: Requires smartphone GPS capabilities (Android/iOS apps)
+
+### 3.6 Authentication & Security
 
 - **User Accounts**: Individual accounts for each family member
 - **Authentication**: Secure login system
@@ -104,6 +132,8 @@ provides:
 - **Concurrent Users**: Support 25 simultaneous users
 - **Scalability**: Architecture supports growth to 50+ users
 - **Offline Support**: Basic offline functionality for mobile apps
+- **Location Updates**: Real-time location updates with minimal battery impact
+  (configurable update frequency)
 
 ### 4.3 Security Requirements
 
@@ -116,8 +146,10 @@ provides:
 
 ### 4.4 Data Storage
 
-- **SQL Database**: MySQL for structured data (users, tasks, projects)
-- **NoSQL Database**: MongoDB for flexible documents (notes, messages, recipes)
+- **SQL Database**: MySQL for structured data (users, tasks, projects, events,
+  lists)
+- **NoSQL Database**: MongoDB for flexible documents (notes, messages, recipes,
+  location data)
 - **File Storage**: File system for uploaded files (images, documents)
 
 ---
@@ -155,8 +187,10 @@ provides:
 - [ ] Basic messaging (channels and DMs)
 - [ ] Task creation and assignment
 - [ ] Note creation and organization
+- [ ] Calendar events and basic lists
 - [ ] Web app functional
 - [ ] Android app functional
+- [ ] Location sharing (Android app)
 
 ### 6.2 Phase 1 Complete
 
@@ -168,10 +202,12 @@ provides:
 
 ### 6.3 Long-term Success
 
-- [ ] Family successfully migrated from paid services
+- [ ] Family successfully migrated from paid services (Slack, JIRA, Evernote,
+      Cozi Calendar, Life360)
 - [ ] All 5 initial users actively using the app
 - [ ] Performance meets requirements
 - [ ] Zero critical security issues
+- [ ] Location sharing working reliably on Android
 - [ ] iOS app development initiated
 
 ---
@@ -184,8 +220,9 @@ provides:
 - Advanced JIRA features (epics, sprints, complex workflows)
 - Advanced Evernote features (OCR, handwriting recognition)
 - Video/voice calling
-- Calendar integration
+- External calendar integration (Google Calendar, iCal sync)
 - Email integration
+- Location sharing on web (requires mobile apps for GPS)
 
 ---
 
@@ -194,11 +231,13 @@ provides:
 - iOS app development
 - App Store distribution (Google Play, Apple App Store)
 - Advanced task management features
-- Calendar and scheduling
+- Advanced calendar features (time zones, calendar sync)
 - Family photo sharing
 - Expense tracking
-- Shopping lists
 - Meal planning integration with recipes
+- Location-based automation (e.g., "when arriving at grocery store, show
+  shopping list")
+- Location history analytics and insights
 
 ---
 
@@ -245,7 +284,7 @@ provides:
 - Backend API development
 - Authentication system
 - Web frontend (React)
-- Basic features (messaging, tasks, notes)
+- Basic features (messaging, tasks, notes, calendar, lists)
 
 ### Phase 2: Android App
 
@@ -253,6 +292,8 @@ provides:
 - Mobile-optimized UI
 - Push notifications
 - Offline support
+- Location sharing implementation
+- GPS integration and background location updates
 
 ### Phase 3: Feature Completion
 
@@ -264,6 +305,7 @@ provides:
 ### Phase 4: iOS App (Future)
 
 - iOS app development
+- Location sharing implementation (iOS)
 - App Store preparation
 
 ---
@@ -282,6 +324,8 @@ provides:
 - Slack: Communication patterns and UX
 - JIRA: Task management workflows (simplified)
 - Evernote: Note organization and search patterns
+- Cozi Calendar: Calendar and list management patterns
+- Life360: Location sharing and family safety features
 
 ---
 

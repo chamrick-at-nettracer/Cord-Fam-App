@@ -18,18 +18,21 @@ for Hackathon/Demo
   - Slack for communication
   - JIRA for task management
   - Evernote for notes/recipes
+  - Cozi Calendar for calendar and lists
+  - Life360 for location sharing
 - **Pain Point**: Subscription costs becoming cost-prohibitive
 - **Need**: Self-hosted, unified solution with equivalent functionality
 
 ### The Solution
 
-- **Cord-Fam-App**: Single platform combining all three capabilities
+- **Cord-Fam-App**: Single platform combining all five capabilities
 - **Architecture**: Multi-platform (Web, Android planned, iOS future)
 - **Tech Stack**: Modern, production-ready technologies
   - Backend: Node.js + TypeScript + Fastify
   - Frontend: React 19 + TypeScript + Material-UI
   - Databases: MySQL (structured) + MongoDB (flexible documents)
   - Authentication: JWT-based security
+  - Location: GPS integration (mobile apps)
 
 ---
 
@@ -294,16 +297,19 @@ tests are being written incrementally.
 
 - **Phase 1**: Complete task management module (JIRA-like)
 - **Phase 2**: Complete notes/recipes module (Evernote-like)
-- **Phase 3**: Android app development
-- **Phase 4**: Real-time updates (WebSocket)
-- **Phase 5**: iOS app development
+- **Phase 3**: Complete calendar & lists module (Cozi Calendar-like)
+- **Phase 4**: Android app development with location sharing
+- **Phase 5**: Real-time updates (WebSocket)
+- **Phase 6**: iOS app development with location sharing
 
 ### Long-term Vision
 
-- Replace all paid services (Slack, JIRA, Evernote)
+- Replace all paid services (Slack, JIRA, Evernote, Cozi Calendar, Life360)
 - Support 5-25 family members
 - Self-hosted, zero subscription costs
 - Enterprise-level features, family-friendly pricing
+- Real-time location sharing for family safety and coordination
+- Unified calendar and lists for family organization
 
 ---
 
@@ -314,8 +320,9 @@ tests are being written incrementally.
 - ✅ **Working MVP** with core communication features
 - ✅ **Comprehensive documentation** (PRD, tech docs, API docs, user docs)
 - ✅ **Production-ready architecture** with security and quality standards
-- ✅ **Clear roadmap** for future development
+- ✅ **Clear roadmap** for future development (5 major modules planned)
 - ✅ **Foundation** for complete family collaboration platform
+- ✅ **Vision**: Replace Slack, JIRA, Evernote, Cozi Calendar, and Life360
 
 ### "Done" Status
 

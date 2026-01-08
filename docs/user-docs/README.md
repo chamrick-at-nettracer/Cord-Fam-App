@@ -28,6 +28,21 @@ instructions for using the family collaboration app.
 - [Recipe Management](./RECIPES.md) - Adding and sharing recipes
 - [Searching Content](./SEARCH.md) - Finding notes and recipes
 
+### Calendar & Lists
+
+- [Calendar Events](./CALENDAR_EVENTS.md) - Creating and managing calendar
+  events
+- [To-Do Lists](./TODO_LISTS.md) - Personal and shared to-do lists
+- [Shopping Lists](./SHOPPING_LISTS.md) - Shared shopping lists
+- [Calendar Views](./CALENDAR_VIEWS.md) - Day, week, and month views
+
+### Location Sharing
+
+- [Location Sharing](./LOCATION_SHARING.md) - Sharing your location with family
+- [Location History](./LOCATION_HISTORY.md) - Viewing location history
+- [Geofencing](./GEOFENCING.md) - Setting up location-based alerts
+- [Privacy Controls](./LOCATION_PRIVACY.md) - Managing location sharing settings
+
 ## Platform-Specific Guides
 
 - [Web App Guide](./WEB_APP.md) - Using the web version
